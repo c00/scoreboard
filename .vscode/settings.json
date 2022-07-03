@@ -3,5 +3,7 @@
     "activityBar.background": "#0A3332",
     "titleBar.activeBackground": "#0E4846",
     "titleBar.activeForeground": "#F1FCFC"
-  }
+  },
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore"
 }

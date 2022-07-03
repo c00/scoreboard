@@ -1,5 +1,21 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<h1 class="text-3xl font-bold underline">
-  Hello world!
-</h1>
+<script>
+	import { DateTime } from 'luxon';
+	import { onMount } from 'svelte';
+	import SegmentDisplay from '../lib/SevenSegmentsDisplay/SegmentDisplay.svelte';
+
+	let value = 10000;
+	let time = '00:00:00';
+
+	onMount(() => {
+		const interval = setInterval(() => {
+			value--;
+			time = DateTime.now().toLocaleString(DateTime.TIME_24_WITH_SECONDS);
+		}, 1000);
+
+		return () => {
+			clearInterval(interval);
+		};
+	});
+</script>
+
+Nothing here!
