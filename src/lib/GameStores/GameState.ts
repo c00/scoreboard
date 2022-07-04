@@ -8,7 +8,7 @@ export interface GameState {
 }
 
 export interface Clock {
-	running: boolean;
+	active: boolean;
 	seconds: number;
 	startedAt: number;
 	stopAtZero: boolean;
@@ -30,7 +30,7 @@ export interface PenaltyState {
 
 export const defaultState: GameState = {
 	mainClock: {
-		running: false,
+		active: false,
 		seconds: 60 * 30,
 		startedAt: 1,
 		stopAtZero: true

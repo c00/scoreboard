@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let digit: string | number = null;
+	export let animate = true;
 
 	$: digitClass = canDisplay(digit) ? `digit-${digit}` : 'no-digit';
 
@@ -10,7 +11,7 @@
 	};
 </script>
 
-<svg class="{$$props.class} {digitClass}" xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 12 20">
+<svg class:animate={animate} class="{$$props.class} {digitClass}" xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 12 20">
 	<g
 		xmlns="http://www.w3.org/2000/svg"
 		style="fill-rule:evenodd; stroke:#FFFFFF; stroke-width:0.25; stroke-opacity:0; stroke-linecap:butt; stroke-linejoin:miter;"
@@ -26,6 +27,10 @@
 </svg>
 
 <style lang="scss">
+	.animate polygon {
+		@apply transition-colors ease-out duration-100;
+	}
+
 	svg {
 		@apply text-zinc-700;
 		height: inherit;

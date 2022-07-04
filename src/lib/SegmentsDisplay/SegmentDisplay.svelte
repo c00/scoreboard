@@ -8,6 +8,8 @@
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let value: string | number = null;
 
+	export let animate = true;
+
 	$: formatArr = format.split('');
 	$: segments = inputToSegmentValue(value, format.length);
 
@@ -21,7 +23,7 @@
 				{#if dots.includes(s)}
 					<Dots {color} digit={segments[i]} type={s} />
 				{:else}
-					<SevenSegment class={color} digit={segments[i]} />
+					<SevenSegment {animate} class={color} digit={segments[i]} />
 				{/if}
 			</span>
 		{/each}

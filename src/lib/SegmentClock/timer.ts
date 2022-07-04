@@ -4,7 +4,7 @@ import { readable } from 'svelte/store';
 export const time = readable(DateTime.now(), function start(set) {
 	const interval = setInterval(() => {
 		set(DateTime.now());
-	}, 10);
+	}, Math.floor(1000 / 60));
 
 	return function stop() {
 		clearInterval(interval);
@@ -12,7 +12,7 @@ export const time = readable(DateTime.now(), function start(set) {
 });
 
 export interface Timer {
-  seconds: number;
-  minutes: number;
-  hundreths: number;
+	seconds: number;
+	minutes: number;
+	hundreths: number;
 }

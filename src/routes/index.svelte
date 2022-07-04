@@ -1,18 +1,28 @@
 <script lang="ts">
-	import SegmentClock from '$lib/SegmentClock/SegmentClock.svelte';
-	import type { Clock } from '$lib/GameStores/GameState';
-	import { DateTime } from 'luxon';
+	import SimpleClock from '../lib/SegmentClock/SimpleClock.svelte';
 
-	const clock: Clock = {
-		running: false,
-		seconds: 65,
-		startedAt: DateTime.now().toSeconds(),
-		stopAtZero: false
-	};
+	let seconds = 600;
+	let active = true;
+
+	let finished = false;
 </script>
 
 Nothing here!
 
-<div class="h-10">
-	<SegmentClock color="green" format="  :  " {clock} />
+<div class="">
+	<SimpleClock stopAtZero={true} {active} {seconds} on:timerFinished={() => (finished = true)} />
 </div>
+
+<div>{finished ? 'FINISHED!' : '...'}</div>
+
+<br /><br />
+<button on:click={() => (active = !active)}>Turn {active ? 'off' : 'on'}</button>
+
+<br /> <br />
+<button
+	on:click={() => {
+		seconds = 600
+	}}
+>
+	RESET
+</button>
