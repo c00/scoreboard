@@ -1,17 +1,21 @@
 <script>
-import SegmentDisplay from '../SevenSegmentsDisplay/SegmentDisplay.svelte';
-
+	import SegmentDisplay from '../SegmentsDisplay/SegmentDisplay.svelte';
 </script>
+
 <div class="justify-center flex">
 	<div>
-		<span class="text-3xl">PLAYER</span>
-    <SegmentDisplay size="sm" color="orange" length={2} value="76" />
-		<SegmentDisplay size="sm" color="orange" length={2} value="" />
+		<div class="text-3xl">PLAYER</div>
+		<div>
+			<SegmentDisplay size="sm" color="orange" format="  " value="76" />
+		</div>
+		<div>
+			<SegmentDisplay size="sm" color="orange" format="  " value="" />
+		</div>
 	</div>
 
-  <div>
-		<span class="text-3xl">PENALTY</span>
-    <SegmentDisplay size="sm" color="red" length={5} value="2:36" />
-		<SegmentDisplay size="sm" color="red" length={5} value="  :  " />
+	<div>
+		<div class="text-3xl">PENALTY</div>
+		<div><SegmentDisplay size="sm" color="red" format="  :  " value="2:36" /></div>
+		<div><SegmentDisplay size="sm" color="red" format="  :  " value="" /></div>
 	</div>
 </div>

@@ -1,26 +1,27 @@
 <script lang="ts">
 	import Dots from './Dots.svelte';
 	import { inputToSegmentValue } from './SegmentDisplayHelpers';
-
 	import SevenSegment from './SevenSegment.svelte';
 
 	export let color: string = null;
-	export let length: number = 6;
+	export let format: string = '  :  ';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let value: string | number = null;
 
-	$: segments = inputToSegmentValue(value, length);
-	const dotChars = ['.', ':', '`'];
+	$: formatArr = format.split('');
+	$: segments = inputToSegmentValue(value, format.length);
+
+	const dots = [':', '.', '`'];
 </script>
 
 <div class="inline-block">
 	<div class="flex gap-1 px-1 py-1 rounded-lg segments {color}">
-		{#each segments as s}
+		{#each formatArr as s, i}
 			<span class="segment {size}">
-				{#if dotChars.includes(s)}
-					<Dots {color} digit={s} />
+				{#if dots.includes(s)}
+					<Dots {color} digit={segments[i]} type={s} />
 				{:else}
-					<SevenSegment class={color} digit={s} />
+					<SevenSegment class={color} digit={segments[i]} />
 				{/if}
 			</span>
 		{/each}

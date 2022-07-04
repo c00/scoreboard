@@ -345,13 +345,13 @@
 			.d,
 			.e,
 			.f {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-1 {
 			.b,
 			.c {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-2 {
@@ -369,7 +369,7 @@
 			.c,
 			.d,
 			.g {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-4 {
@@ -377,7 +377,7 @@
 			.c,
 			.f,
 			.g {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-5 {
@@ -386,7 +386,7 @@
 			.d,
 			.f,
 			.g {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-6 {
@@ -396,14 +396,14 @@
 			.e,
 			.f,
 			.g {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-7 {
 			.a,
 			.b,
 			.c {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-8 {
@@ -414,7 +414,7 @@
 			.e,
 			.f,
 			.g {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-9 {
@@ -424,17 +424,17 @@
 			.d,
 			.f,
 			.g {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-- {
 			.g {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 		&.digit-_ {
 			.d {
-				@apply text-green-700;
+				@apply text-emerald-500;
 			}
 		}
 	}

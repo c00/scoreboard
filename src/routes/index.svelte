@@ -1,21 +1,18 @@
-<script>
+<script lang="ts">
+	import SegmentClock from '$lib/SegmentClock/SegmentClock.svelte';
+	import type { Clock } from '$lib/GameStores/GameState';
 	import { DateTime } from 'luxon';
-	import { onMount } from 'svelte';
-	import SegmentDisplay from '../lib/SevenSegmentsDisplay/SegmentDisplay.svelte';
 
-	let value = 10000;
-	let time = '00:00:00';
-
-	onMount(() => {
-		const interval = setInterval(() => {
-			value--;
-			time = DateTime.now().toLocaleString(DateTime.TIME_24_WITH_SECONDS);
-		}, 1000);
-
-		return () => {
-			clearInterval(interval);
-		};
-	});
+	const clock: Clock = {
+		running: false,
+		seconds: 65,
+		startedAt: DateTime.now().toSeconds(),
+		stopAtZero: false
+	};
 </script>
 
 Nothing here!
+
+<div class="h-10">
+	<SegmentClock color="green" format="  :  " {clock} />
+</div>

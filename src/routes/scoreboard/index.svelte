@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ScoreSection from '$lib/ScoreSection/ScoreSection.svelte';
-	import SegmentDisplay from '$lib/SevenSegmentsDisplay/SegmentDisplay.svelte';
+	import SegmentDisplay from '$lib/SegmentsDisplay/SegmentDisplay.svelte';
 	import team1 from '$lib/assets/team1.png';
 	import team2 from '$lib/assets/team2.png';
 	import PenaltyDisplay from '$lib/PenaltyDisplay/PenaltyDisplay.svelte';
@@ -50,7 +50,7 @@
 
 		<div class="flex-1 flex flex-col justify-between">
 			<div>
-				<SegmentDisplay size="lg" color="orange" length={5} value="10:23" />
+				<SegmentDisplay size="lg" color="orange" format="  :  " value="10:23" />
 			</div>
 
 			<div class="flex mt-4 justify-center gap-4 items-center">
@@ -62,7 +62,7 @@
 			<div class="mt-4">
 				<div class="text-3xl mb-2">PERIOD</div>
 				<div class="text-center">
-					<SegmentDisplay size="sm" color="green" length={1} value={state.period} />
+					<SegmentDisplay size="sm" color="green" format=" " value={state.period} />
 				</div>
 			</div>
 
