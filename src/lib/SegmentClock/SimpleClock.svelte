@@ -19,9 +19,14 @@
 	let value: string;
 	let endTime: DateTime;
 
-	$: if (hasVal(seconds)) initClock();
+	$: hasVal(seconds) ? initClock(): clearClock();
 	$: active ? resume() : pause();
 	$: if (active && $time) tick();
+
+  function clearClock() {
+    active = false;
+    value = null;
+  }
 
 	function initClock() {
 		ms = seconds * 1000;

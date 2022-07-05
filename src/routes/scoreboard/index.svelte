@@ -9,6 +9,7 @@
 	import GoalArrow from '$lib/GoalArrow/GoalArrow.svelte';
 	import { defaultState, STORAGE_KEY, type GameState } from '../../lib/GameStores/GameState';
 	import { onMount } from 'svelte';
+import SimpleClock from '../../lib/SegmentClock/SimpleClock.svelte';
 
 	let state: GameState = defaultState;
 
@@ -50,7 +51,7 @@
 
 		<div class="flex-1 flex flex-col justify-between">
 			<div>
-				<SegmentDisplay size="lg" color="orange" format="  :  " value="10:23" />
+				<SimpleClock size="lg" color="orange" format="  :  " seconds={600} />
 			</div>
 
 			<div class="flex mt-4 justify-center gap-4 items-center">

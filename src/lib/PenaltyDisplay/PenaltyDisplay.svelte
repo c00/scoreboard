@@ -1,4 +1,6 @@
 <script>
+import SimpleClock from '../SegmentClock/SimpleClock.svelte';
+
 	import SegmentDisplay from '../SegmentsDisplay/SegmentDisplay.svelte';
 </script>
 
@@ -15,7 +17,7 @@
 
 	<div>
 		<div class="text-3xl">PENALTY</div>
-		<div><SegmentDisplay size="sm" color="red" format="  :  " value="2:36" /></div>
-		<div><SegmentDisplay size="sm" color="red" format="  :  " value="" /></div>
+		<div><SimpleClock size="sm" color="red" format="  :  " seconds={6} /></div>
+		<div><SimpleClock size="sm" color="red" format="  :  " seconds={null} /></div>
 	</div>
 </div>
