@@ -7,9 +7,9 @@
 	import Goalshots from '$lib/Goalshots/Goalshots.svelte';
 	import hockey from '$lib/assets/hockey.png';
 	import GoalArrow from '$lib/GoalArrow/GoalArrow.svelte';
-	import { defaultState, STORAGE_KEY, type GameState } from '../../lib/GameStores/GameState';
+	import { defaultState, STORAGE_KEY, type GameState } from '$lib/GameStores/GameState';
 	import { onMount } from 'svelte';
-import SimpleClock from '../../lib/SegmentClock/SimpleClock.svelte';
+	import SimpleClock from '$lib/SegmentClock/SimpleClock.svelte';
 
 	let state: GameState = defaultState;
 

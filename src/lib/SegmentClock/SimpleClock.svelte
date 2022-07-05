@@ -34,7 +34,7 @@
 		endTime = DateTime.now().plus({ seconds });
 
 		//Unset seconds so we can take in the same value again.
-		seconds = null;
+		// seconds = null;
 	}
 
 	function tick() {
