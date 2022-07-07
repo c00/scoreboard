@@ -3,13 +3,14 @@
 	import NumberInput from '../../Forms/NumberInput.svelte';
 	import TextInput from '../../Forms/TextInput.svelte';
 	import type { TeamState } from '../../GameStores/GameState';
+import ImageConfig from '../ImageConfig/ImageConfig.svelte';
 
 	export let team: TeamState;
 </script>
 
 <form class="card bg-slate-50 shadow">
 	<div class="mx-auto mt-8">
-		<img class="w-48 rounded" src={team1} alt="Shoes" />
+		<ImageConfig img={team1} />
 	</div>
 	<div class="card-body">
 		<TextInput bind:value={team.name} label="Team name" />

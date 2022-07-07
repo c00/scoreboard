@@ -42,7 +42,7 @@
 	<section class="flex gap-3 px-4 my-8 text-center grow">
 		<div class="flex-1 flex flex-col justify-between">
 			<div class="">
-				<ScoreSection name="MAPLE QUEEFS" image={team2} />
+				<ScoreSection name="{state.leftTeam.name}" image={team2} />
 			</div>
 			<div class="mt-8">
 				<PenaltyDisplay />
@@ -74,7 +74,7 @@
 
 		<div class="flex-1 flex flex-col justify-between">
 			<div class="">
-				<ScoreSection name="STRANGER DANGER" image={team1} />
+				<ScoreSection name="{state.rightTeam.name}" image={team1} />
 			</div>
 			<div class="mt-8">
 				<PenaltyDisplay />

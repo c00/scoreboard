@@ -1,46 +1,32 @@
 <script lang="ts">
-	import { defaultState, gameState, STORAGE_KEY, type GameState } from '$lib/GameStores/GameState';
-	import { onMount } from 'svelte';
+	import TeamConfig from '$lib/Config/TeamConfig/TeamConfig.svelte';
+	import { gameState, type GameState } from '$lib/GameStores/GameState';
 	import { derived, writable } from 'svelte/store';
 	import { fade } from 'svelte/transition';
-	import TeamConfig from '$lib/Config/TeamConfig/TeamConfig.svelte';
 
 	import equal from 'deep-equal';
+	import ClockConfig from '$lib/Config/ClockConfig/ClockConfig.svelte';
+	import PeriodConfig from '$lib/Config/PeriodConfig/PeriodConfig.svelte';
+	import ImageConfig from '$lib/Config/ImageConfig/ImageConfig.svelte';
+	import hockey from '$lib/assets/hockey.png';
 
-	let pendingState = writable<GameState>();
-	let dirty;
-
-	$: if ($gameState) updateStorage();
-
-	onMount(() => {
-		if (!$gameState) {
-			//todo move to storage
-			//try loading it from storage
-			const data = localStorage.getItem(STORAGE_KEY);
-			if (!data) {
-				gameState.set(defaultState);
-			} else {
-				const state = JSON.parse(data);
-				gameState.set(state);
-			}
-
-			$pendingState = structuredClone($gameState);
-      setDerivedStore();
-		}
+	//Consider moving this to GameState
+	// Also consider moving the gamestate store from the GameState.ts into its own thing.
+	// Also consider wrapping the whole persistent writable thing into a separate thing.
+	// Also consider creating a storageReadable that responds to updated storage.
+	const pendingState = writable<GameState>();
+	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
+		return !equal($gameState, $pendingState);
 	});
 
-	const updateStorage = () => {
-		localStorage.setItem(STORAGE_KEY, JSON.stringify($gameState));
-	};
+	$: if ($gameState) resetPendingState();
 
-	const setDerivedStore = () => {
-		dirty = derived(pendingState, ($pendingState) => {
-			return !equal($gameState, $pendingState);
-		});
-	};
+	function resetPendingState() {
+		$pendingState = structuredClone($gameState);
+	}
+
 	const commit = () => {
-		$gameState = $pendingState;
-    setDerivedStore();
+		$gameState = structuredClone($pendingState);
 	};
 
 	let counter = 0;
@@ -69,6 +55,7 @@
 {#if $pendingState}
 	<div class="container mx-auto px-4">
 		<div class="alert my-4">
+			<pre>{String($dirty)}</pre>
 			{#if $dirty}
 				<div>Click the button to apply the latest updates</div>
 				<button on:click={commit} class="btn">update</button>
@@ -82,8 +69,15 @@
 				<TeamConfig bind:team={$pendingState.leftTeam} />
 			</div>
 			<div>
-				<!-- <pre>{JSON.stringify($gameState, null, 2)}</pre> -->
-				<pre>{JSON.stringify($pendingState, null, 2)}</pre>
+				<div>
+					<ClockConfig clock={$pendingState.mainClock} />
+				</div>
+				<div>
+					<PeriodConfig bind:period={$pendingState.period} />
+				</div>
+				<div>
+					<ImageConfig img={hockey} />
+				</div>
 			</div>
 			<div><TeamConfig bind:team={$pendingState.rightTeam} /></div>
 		</div>
