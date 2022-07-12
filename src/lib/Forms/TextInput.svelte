@@ -8,7 +8,7 @@
 	export let placeholder: string = 'Type here';
 </script>
 
-<div class="form-control w-full max-w-xs">
+<div class="form-control w-full">
 	<label class="label" for={nameId}>
 		<span class="label-text">{label}</span></label>
 	<input
@@ -17,6 +17,6 @@
 		type="text"
 		name={nameId}
 		{placeholder}
-		class="input input-bordered w-full max-w-xs"
+		class="input input-bordered w-full "
 	/>
 </div>

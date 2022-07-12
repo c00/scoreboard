@@ -16,13 +16,14 @@ export interface TeamState {
 	name: string;
 	image: string;
 	score: number;
-	penalty1?: PenaltyState;
-	penalty2?: PenaltyState;
+	penalty1: PenaltyState;
+	penalty2: PenaltyState;
 	goalShots: number;
 	activeGoal: boolean;
 }
 
 export interface PenaltyState {
+	active: boolean;
 	player: number;
 	clock: Clock;
 }
@@ -40,13 +41,53 @@ export const defaultState: GameState = {
 		image: 'hmm',
 		score: 0,
 		goalShots: 0,
-		activeGoal: false
+		activeGoal: false,
+		penalty1: {
+			active: false,
+			clock: {
+				active: false,
+				seconds: 60 * 30,
+				startedAt: 1,
+				stopAtZero: true
+			},
+			player: null
+		},
+		penalty2: {
+			active: false,
+			clock: {
+				active: false,
+				seconds: 60 * 30,
+				startedAt: 1,
+				stopAtZero: true
+			},
+			player: null
+		}
 	},
 	rightTeam: {
 		name: 'ASS CATCHERS',
 		image: 'hmm',
 		score: 0,
 		goalShots: 0,
-		activeGoal: false
+		activeGoal: false,
+		penalty1: {
+			active: false,
+			clock: {
+				active: false,
+				seconds: 60 * 30,
+				startedAt: 1,
+				stopAtZero: true
+			},
+			player: null
+		},
+		penalty2: {
+			active: false,
+			clock: {
+				active: false,
+				seconds: 60 * 30,
+				startedAt: 1,
+				stopAtZero: true
+			},
+			player: null
+		}
 	}
 };

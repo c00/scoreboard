@@ -9,8 +9,9 @@
 	import PeriodConfig from '$lib/Config/PeriodConfig/PeriodConfig.svelte';
 	import equal from 'deep-equal';
 	import { gameState, pendingState } from '../../lib/GameStores/gameStateStore';
-import DebugGameState from '../../lib/Debug/DebugGameState.svelte';
-import GoalButton from '../../lib/Config/GoalButton/GoalButton.svelte';
+	import DebugGameState from '../../lib/Debug/DebugGameState.svelte';
+	import GoalButton from '../../lib/Config/GoalButton/GoalButton.svelte';
+	import PenaltyConfig from '../../lib/Config/PenaltyConfig/PenaltyConfig.svelte';
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
@@ -61,13 +62,21 @@ import GoalButton from '../../lib/Config/GoalButton/GoalButton.svelte';
 				<button class="btn">rollback</button>
 			{/if}
 		</div>
-		<div class="flex gap-4 justify-between mt-8 ">
-			<div>
-				<GoalButton bind:value={$gameState.leftTeam.activeGoal} />
-				<TeamConfig bind:team={$pendingState.leftTeam} />
-			</div>
-			<div>
+		<div class="flex gap-8 mt-8 ">
+			<div class="w-1/3">
+				<div class="mb-4">
+					<GoalButton bind:value={$gameState.leftTeam.activeGoal} />
+				</div>
+				<div class="mb-4">
+					<TeamConfig bind:team={$pendingState.leftTeam} />
+				</div>
 				<div>
+					<h2 class="font-bold text-slate-500 text-center mt-8 mb-2">Penalties</h2>
+					<PenaltyConfig bind:team={$pendingState.leftTeam} />
+				</div>
+			</div>
+			<div class="w-1/3">
+				<div class="mt-20">
 					<ClockConfig bind:clock={$pendingState.mainClock} showStopAtZeroToggle={false} />
 				</div>
 				<div class="mt-4">
@@ -77,9 +86,17 @@ import GoalButton from '../../lib/Config/GoalButton/GoalButton.svelte';
 					<ImageConfig img={hockey} />
 				</div>
 			</div>
-			<div>
-				<GoalButton bind:value={$gameState.rightTeam.activeGoal} />
-				<TeamConfig bind:team={$pendingState.rightTeam} />
+			<div class="w-1/3">
+				<div class="mb-4">
+					<GoalButton bind:value={$gameState.rightTeam.activeGoal} />
+				</div>
+				<div class="mb-4">
+					<TeamConfig bind:team={$pendingState.rightTeam} />
+				</div>
+				<div>
+					<h2 class="font-bold text-slate-500 text-center mt-8 mb-2">Penalties</h2>
+					<PenaltyConfig bind:team={$pendingState.rightTeam} />
+				</div>
 			</div>
 		</div>
 	</div>

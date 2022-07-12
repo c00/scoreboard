@@ -5,17 +5,18 @@
 
   export let label: string;
 	export let value: number;
+	export let placeholder: string = 'Enter number'
 </script>
 
-<div class="form-control w-full max-w-xs">
+<div class="form-control w-full">
 	<label class="label" for={nameId}>
 		<span class="label-text">{label}</span></label>
 	<input
 		id={nameId}
 		bind:value
 		type="number"
-		name="team-name"
-		placeholder="Type here"
-		class="input input-bordered w-full max-w-xs text-right"
+		name={nameId}
+		{placeholder}
+		class="input input-bordered w-full text-right"
 	/>
 </div>

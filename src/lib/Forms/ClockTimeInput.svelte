@@ -37,7 +37,7 @@
 </script>
 
 <TextInput bind:value={input} {label} placeholder="e.g. 10:00" />
-<div class="mt-1 mb-2 hint-area">
+<div class="mt-1 hint-area">
 	{#if error}
 		<div class="text-error">{error}</div>
 	{:else}
