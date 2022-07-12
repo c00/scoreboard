@@ -19,6 +19,7 @@ export interface TeamState {
 	penalty1?: PenaltyState;
 	penalty2?: PenaltyState;
 	goalShots: number;
+	activeGoal: boolean;
 }
 
 export interface PenaltyState {
@@ -38,12 +39,14 @@ export const defaultState: GameState = {
 		name: 'DICK MUNCHERS',
 		image: 'hmm',
 		score: 0,
-		goalShots: 0
+		goalShots: 0,
+		activeGoal: false
 	},
 	rightTeam: {
 		name: 'ASS CATCHERS',
 		image: 'hmm',
 		score: 0,
-		goalShots: 0
+		goalShots: 0,
+		activeGoal: false
 	}
 };

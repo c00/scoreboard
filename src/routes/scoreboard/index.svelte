@@ -14,6 +14,11 @@
 
 	let state: GameState = defaultState;
 
+	$: mainClock = state.mainClock;
+
+	$: leftGoalArrowColor = state.leftTeam.activeGoal ? 'orange' : '';
+	$: rightGoalArrowColor = state.rightTeam.activeGoal ? 'orange' : '';
+
 	onMount(() => {
 		const data = localStorage.getItem(STORAGE_KEY);
 		if (data) state = JSON.parse(data);
@@ -24,6 +29,7 @@
 		if (event.oldValue === event.newValue) return;
 
 		state = JSON.parse(event.newValue);
+		console.log('New Values', state);
 	};
 </script>
 
@@ -32,18 +38,18 @@
 <div class="w-full h-full bg-red-800 text-white flex flex-col">
 	<!-- Header -->
 	<section class="flex gap-3 px-4 pt-8">
-		<div>Ad 1</div>
+		<!-- <div>Ad 1</div> -->
 
 		<div class="grow text-center font-bold text-4xl">NATIONAL ASSHOCKEY CHAMPIONSHIP</div>
 
-		<div>Ad 2</div>
+		<!-- <div>Ad 2</div> -->
 	</section>
 
 	<!-- Main section -->
 	<section class="flex gap-3 px-4 my-8 text-center grow">
 		<div class="flex-1 flex flex-col justify-between">
 			<div class="">
-				<ScoreSection name={state.leftTeam.name} image={team2} />
+				<ScoreSection score={state.leftTeam.score} name={state.leftTeam.name} image={team2} />
 			</div>
 			<div class="mt-8">
 				<PenaltyDisplay />
@@ -52,13 +58,20 @@
 
 		<div class="flex-1 flex flex-col justify-between">
 			<div>
-				<SimpleClock size="lg" color="orange" format="  :  " seconds={600} />
+				<SimpleClock
+					size="lg"
+					color="orange"
+					format="  :  "
+					seconds={mainClock.seconds}
+					active={mainClock.active}
+					stopAtZero={mainClock.stopAtZero}
+				/>
 			</div>
 
 			<div class="flex mt-4 justify-center gap-4 items-center">
-				<div class=""><GoalArrow color="orange" direction="left" /></div>
+				<div class=""><GoalArrow color={leftGoalArrowColor} direction="left" /></div>
 				<div class="text-3xl text-center">GOAL</div>
-				<div class=""><GoalArrow direction="right" /></div>
+				<div class=""><GoalArrow color={rightGoalArrowColor} direction="right" /></div>
 			</div>
 
 			<div class="mt-4">
@@ -69,13 +82,17 @@
 			</div>
 
 			<div class="mt-4 ">
-				<Goalshots logo={hockey} />
+				<Goalshots
+					logo={hockey}
+					leftValue={state.leftTeam.goalShots}
+					rightValue={state.rightTeam.goalShots}
+				/>
 			</div>
 		</div>
 
 		<div class="flex-1 flex flex-col justify-between">
 			<div class="">
-				<ScoreSection name={state.rightTeam.name} image={team1} />
+				<ScoreSection score={state.rightTeam.score} name={state.rightTeam.name} image={team1} />
 			</div>
 			<div class="mt-8">
 				<PenaltyDisplay />

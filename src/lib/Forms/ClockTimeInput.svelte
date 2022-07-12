@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { hasVal, secondsToTime, timeToSeconds } from '../Config/ClockConfig/ClockHelper';
 	import TextInput from './TextInput.svelte';
 
@@ -10,15 +9,27 @@
 	let input: string;
 
 	$: if (input) setSeconds();
+	$: if (seconds) setInput();
 
-	onMount(() => {
-		if (hasVal(seconds)) input = secondsToTime(seconds);
-	});
+	function setInput() {
+		if (!hasVal(seconds)) return;
+
+		//If the parsed seconds haven't changed, don't update.
+		try {
+			if (timeToSeconds(input) === seconds) return;
+		} catch (err) {
+			//If any parsing error happens, it's a good time to update.
+		}
+
+		input = secondsToTime(seconds);
+	}
 
 	function setSeconds() {
 		try {
-			seconds = timeToSeconds(input);
 			error = undefined;
+			const newSeconds = timeToSeconds(input);
+			if (newSeconds === seconds) return;
+			seconds = newSeconds;
 		} catch (err) {
 			error = String(err);
 		}

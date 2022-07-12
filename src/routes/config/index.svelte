@@ -10,6 +10,7 @@
 	import equal from 'deep-equal';
 	import { gameState, pendingState } from '../../lib/GameStores/gameStateStore';
 import DebugGameState from '../../lib/Debug/DebugGameState.svelte';
+import GoalButton from '../../lib/Config/GoalButton/GoalButton.svelte';
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
@@ -62,11 +63,12 @@ import DebugGameState from '../../lib/Debug/DebugGameState.svelte';
 		</div>
 		<div class="flex gap-4 justify-between mt-8 ">
 			<div>
+				<GoalButton bind:value={$gameState.leftTeam.activeGoal} />
 				<TeamConfig bind:team={$pendingState.leftTeam} />
 			</div>
 			<div>
 				<div>
-					<ClockConfig bind:clock={$pendingState.mainClock} />
+					<ClockConfig bind:clock={$pendingState.mainClock} showStopAtZeroToggle={false} />
 				</div>
 				<div class="mt-4">
 					<PeriodConfig bind:period={$pendingState.period} />
@@ -75,7 +77,10 @@ import DebugGameState from '../../lib/Debug/DebugGameState.svelte';
 					<ImageConfig img={hockey} />
 				</div>
 			</div>
-			<div><TeamConfig bind:team={$pendingState.rightTeam} /></div>
+			<div>
+				<GoalButton bind:value={$gameState.rightTeam.activeGoal} />
+				<TeamConfig bind:team={$pendingState.rightTeam} />
+			</div>
 		</div>
 	</div>
 {/if}
