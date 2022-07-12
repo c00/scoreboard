@@ -1,32 +1,32 @@
 <script lang="ts">
 	import { DateTime, Duration } from 'luxon';
-	import { hasVal } from '../GameStores/clockHelper';
 	import SegmentDisplay from '../SegmentsDisplay/SegmentDisplay.svelte';
 	import { time } from './timer';
-  import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
+	import { hasVal } from '../Config/ClockConfig/ClockHelper';
 
 	export let seconds = 600;
 	export let active = true;
-  export let stopAtZero = true;
+	export let stopAtZero = true;
 
-  export let color: string = 'green';
+	export let color: string = 'green';
 	export let format: string = '  :  ';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 
-  const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher();
 
 	let ms: number = 0;
 	let value: string;
 	let endTime: DateTime;
 
-	$: hasVal(seconds) ? initClock(): clearClock();
+	$: hasVal(seconds) ? initClock() : clearClock();
 	$: active ? resume() : pause();
 	$: if (active && $time) tick();
 
-  function clearClock() {
-    active = false;
-    value = null;
-  }
+	function clearClock() {
+		active = false;
+		value = null;
+	}
 
 	function initClock() {
 		ms = seconds * 1000;
@@ -39,11 +39,11 @@
 
 	function tick() {
 		ms = endTime.diffNow().toMillis();
-    if (ms <= 0 && stopAtZero) {
-      ms = 0;
-      active = false;
-      dispatch('timerFinished');
-    }
+		if (ms <= 0 && stopAtZero) {
+			ms = 0;
+			active = false;
+			dispatch('timerFinished');
+		}
 		setValue();
 	}
 
@@ -57,7 +57,7 @@
 	}
 
 	function setValue() {
-    const absMs = Math.abs(ms);
+		const absMs = Math.abs(ms);
 		if (ms > 60 * 1000) {
 			//Minutes and seconds
 			value = Duration.fromMillis(absMs).toFormat('mm:ss');

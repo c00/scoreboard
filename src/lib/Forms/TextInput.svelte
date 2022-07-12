@@ -5,6 +5,7 @@
 
   export let label: string;
 	export let value: string;
+	export let placeholder: string = 'Type here';
 </script>
 
 <div class="form-control w-full max-w-xs">
@@ -14,8 +15,8 @@
 		id={nameId}
 		bind:value
 		type="text"
-		name="team-name"
-		placeholder="Type here"
+		name={nameId}
+		{placeholder}
 		class="input input-bordered w-full max-w-xs"
 	/>
 </div>

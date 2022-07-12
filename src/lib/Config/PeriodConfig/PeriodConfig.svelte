@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let period: number = 1;
+	import InlineNumberInput from '../../Forms/InlineNumberInput.svelte';
+
+	export let period: number = 1;
 </script>
 
-Period: {period}
+<InlineNumberInput bind:value={period} label="Period" />

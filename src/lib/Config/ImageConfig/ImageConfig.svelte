@@ -3,4 +3,4 @@
 </script>
 
 <!-- Todo -->
-<img class="w-48 rounded" src={img} alt="Shoes" />
+<img class="w-48 rounded mx-auto" src={img} alt="Shoes" />

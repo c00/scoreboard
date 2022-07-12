@@ -7,9 +7,10 @@
 	import Goalshots from '$lib/Goalshots/Goalshots.svelte';
 	import hockey from '$lib/assets/hockey.png';
 	import GoalArrow from '$lib/GoalArrow/GoalArrow.svelte';
-	import { defaultState, STORAGE_KEY, type GameState } from '$lib/GameStores/GameState';
+	import { defaultState, type GameState } from '$lib/GameStores/GameState';
 	import { onMount } from 'svelte';
 	import SimpleClock from '$lib/SegmentClock/SimpleClock.svelte';
+	import { STORAGE_KEY } from '../../lib/GameStores/gameStateStore';
 
 	let state: GameState = defaultState;
 
@@ -42,7 +43,7 @@
 	<section class="flex gap-3 px-4 my-8 text-center grow">
 		<div class="flex-1 flex flex-col justify-between">
 			<div class="">
-				<ScoreSection name="{state.leftTeam.name}" image={team2} />
+				<ScoreSection name={state.leftTeam.name} image={team2} />
 			</div>
 			<div class="mt-8">
 				<PenaltyDisplay />
@@ -74,7 +75,7 @@
 
 		<div class="flex-1 flex flex-col justify-between">
 			<div class="">
-				<ScoreSection name="{state.rightTeam.name}" image={team1} />
+				<ScoreSection name={state.rightTeam.name} image={team1} />
 			</div>
 			<div class="mt-8">
 				<PenaltyDisplay />

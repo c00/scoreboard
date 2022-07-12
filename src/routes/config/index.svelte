@@ -1,20 +1,16 @@
 <script lang="ts">
 	import TeamConfig from '$lib/Config/TeamConfig/TeamConfig.svelte';
-	import { gameState, type GameState } from '$lib/GameStores/GameState';
-	import { derived, writable } from 'svelte/store';
+	import { derived } from 'svelte/store';
 	import { fade } from 'svelte/transition';
 
-	import equal from 'deep-equal';
-	import ClockConfig from '$lib/Config/ClockConfig/ClockConfig.svelte';
-	import PeriodConfig from '$lib/Config/PeriodConfig/PeriodConfig.svelte';
-	import ImageConfig from '$lib/Config/ImageConfig/ImageConfig.svelte';
 	import hockey from '$lib/assets/hockey.png';
+	import ClockConfig from '$lib/Config/ClockConfig/ClockConfig.svelte';
+	import ImageConfig from '$lib/Config/ImageConfig/ImageConfig.svelte';
+	import PeriodConfig from '$lib/Config/PeriodConfig/PeriodConfig.svelte';
+	import equal from 'deep-equal';
+	import { gameState, pendingState } from '../../lib/GameStores/gameStateStore';
+import DebugGameState from '../../lib/Debug/DebugGameState.svelte';
 
-	//Consider moving this to GameState
-	// Also consider moving the gamestate store from the GameState.ts into its own thing.
-	// Also consider wrapping the whole persistent writable thing into a separate thing.
-	// Also consider creating a storageReadable that responds to updated storage.
-	const pendingState = writable<GameState>();
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
 	});
@@ -70,12 +66,12 @@
 			</div>
 			<div>
 				<div>
-					<ClockConfig clock={$pendingState.mainClock} />
+					<ClockConfig bind:clock={$pendingState.mainClock} />
 				</div>
-				<div>
+				<div class="mt-4">
 					<PeriodConfig bind:period={$pendingState.period} />
 				</div>
-				<div>
+				<div class="mt-4">
 					<ImageConfig img={hockey} />
 				</div>
 			</div>
@@ -83,3 +79,5 @@
 		</div>
 	</div>
 {/if}
+
+<DebugGameState />
