@@ -41,7 +41,7 @@ import SliderInput from '../../lib/Forms/SliderInput.svelte';
 
 <div class="navbar bg-primary text-primary-content">
 	<div class="flex-1">
-		<button on:click={() => counter++} class="btn btn-ghost normal-case text-xl">Scoreboard</button>
+		<button type="button" on:click={() => counter++} class="btn btn-ghost normal-case text-xl">Scoreboard</button>
 		{#if showHiddenMessage}
 			<span class="ml-4" transition:fade>Stop touching me!</span>
 		{/if}
@@ -52,17 +52,8 @@ import SliderInput from '../../lib/Forms/SliderInput.svelte';
 </div>
 
 {#if $pendingState}
-	<div class="container mx-auto px-4 pb-10">
-		<div class="alert my-4">
-			<pre>{String($dirty)}</pre>
-			{#if $dirty}
-				<div>Click the button to apply the latest updates</div>
-				<button on:click={commit} class="btn">update</button>
-			{:else}
-				<div>Everything is up to date</div>
-				<button class="btn">rollback</button>
-			{/if}
-		</div>
+	<form class="container mx-auto px-4 pb-10">
+
 		<div class="flex gap-8 mt-8 ">
 			<div class="w-1/3">
 				<div class="mb-4">
@@ -77,7 +68,16 @@ import SliderInput from '../../lib/Forms/SliderInput.svelte';
 				</div>
 			</div>
 			<div class="w-1/3">
-				<div class="mt-16">
+				<div class="alert transition-colors mb-4" class:alert-warning={$dirty}>
+					{#if $dirty}
+						<div>Click the button to apply the latest updates</div>
+						<button type="submit" on:click={commit} class="btn btn-secondary">update</button>
+					{:else}
+						<div>Everything is up to date</div>
+						<button type="button" disabled class="btn">update</button>
+					{/if}
+				</div>
+				<div class="mt-10">
 					<TextInput bind:value={$pendingState.title} label="Title" />
 				</div>
 				<div class="mt-4">
@@ -113,7 +113,7 @@ import SliderInput from '../../lib/Forms/SliderInput.svelte';
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 {/if}
 
 <DebugGameState />

@@ -24,4 +24,4 @@
 	}
 </script>
 
-<button class="btn btn-block btn-accent" on:click={click}>{label}</button>
+<button class="btn btn-block btn-accent" type="button" on:click={click}>{label}</button>

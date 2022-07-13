@@ -24,7 +24,7 @@
 
 {#if showAltClock}
 	<div class="text-center">
-		<button on:click={switchClocks} class="btn btn-sm btn-primary">switch <SwitchIcon /></button>
+		<button on:click={switchClocks} type="button" class="btn btn-sm btn-primary">switch <SwitchIcon /></button>
 	</div>
 	<ClockTimeInput bind:seconds={altClockSeconds} label="Alternative Clock" />
 {/if}
