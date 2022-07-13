@@ -2,7 +2,7 @@
 	export let label: string = 'GOAL';
 	export let value: boolean;
 
-	export let timeout = 2000;
+	export let timeout = 20000;
 	export let useTimeout = true;
 
 	let timeoutId: ReturnType<typeof setTimeout>;

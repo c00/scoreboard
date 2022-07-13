@@ -31,6 +31,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>{$state.title}</title>
+</svelte:head>
+
 <div class="w-full h-full bg-red-800 text-white flex flex-col">
 	<!-- Header -->
 	<section class="flex gap-3 px-4 pt-8">

@@ -43,7 +43,7 @@ export const defaultState: GameState = {
 	period: 1,
 	leftTeam: {
 		side: 'left',
-		name: 'DICK MUNCHERS',
+		name: 'THE LEFT TEAM',
 		image: 'hmm',
 		score: 0,
 		goalShots: 0,
@@ -71,7 +71,7 @@ export const defaultState: GameState = {
 	},
 	rightTeam: {
 		side: 'right',
-		name: 'ASS CATCHERS',
+		name: 'THE RIGHT TEAM',
 		image: 'hmm',
 		score: 0,
 		goalShots: 0,

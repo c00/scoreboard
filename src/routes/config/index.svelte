@@ -74,10 +74,10 @@
 					<SliderInput min={10} max={30} bind:value={$pendingState.boardSize} label="Board Size" />
 				</div>
 				<div class="mt-4">
-					<AudioConfig label="Buzzer" name="buzzer" />
+					<AudioConfig label="Clock Buzzer" name="buzzer" />
 				</div>
 				<div class="mt-4">
-					<AudioConfig label="Horn" name="horn" />
+					<AudioConfig label="Goal Horn" name="horn" />
 				</div>
 			</div>
 			<div class="w-1/3">
