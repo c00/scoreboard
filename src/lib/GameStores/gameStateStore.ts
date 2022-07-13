@@ -14,17 +14,14 @@ function createGameStateStore() {
 	try {
 		state = JSON.parse(localStorage.getItem(STORAGE_KEY));
 		if (!state) state = defaultState;
-		console.log('Gotten from storage', state);
 	} catch (err) {
 		//JSOM parse error
 		state = defaultState;
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-		console.log('Using default state', state);
 	}
 	const store = writable<GameState>(state);
 
 	store.subscribe((v) => {
-		console.log('updating localStorage', v);
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(v));
 	});
 

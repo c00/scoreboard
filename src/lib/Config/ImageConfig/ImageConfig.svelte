@@ -7,9 +7,6 @@
 	import hockey from '$lib/assets/hockey.png';
 	import { getRandomId } from '../randomId';
 
-	//todo remove
-	// export let img: string;
-
 	export let label: string = null;
 	export let name: string;
 
@@ -32,21 +29,20 @@
 		if (files.length === 0) return;
 		const data = await readFile(files.item(0));
 
-		localforage.setItem(name, data);
+		await localforage.setItem(name, data);
+		localStorage.setItem('media-update', String(new Date()));
 		dispatch('image-saved', { name });
 		src = data;
-
-		console.log(data);
 	}
 </script>
 
 {#if label}
-<div class="text-center">
-	<label class="mb-1" for={inputId}>{label}</label>
-</div>
+	<div class="text-center">
+		<label class="mb-1" for={inputId}>{label}</label>
+	</div>
 {/if}
 <button type="button" class="mx-auto block" on:click={() => fileEl.click()}>
 	<img class="w-48 rounded" {src} alt="Image for {name}" />
 </button>
 
-<input id={inputId} type="file" bind:files class="hidden" bind:this={fileEl} />
+<input id={inputId} type="file" bind:files class="hidden" bind:this={fileEl} accept=".png,.jpg,.jpeg,.svg"  />

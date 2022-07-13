@@ -24,7 +24,6 @@
 			var image = reader.result;
 
 			await localforage.setItem('some-audio', image);
-			console.log('Stored');
 		};
 
 		reader.readAsDataURL(files.item(0));

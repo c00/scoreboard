@@ -2,9 +2,13 @@
 	import { DateTime, Duration } from 'luxon';
 	import SegmentDisplay from '../SegmentsDisplay/SegmentDisplay.svelte';
 	import { time } from './timer';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, getContext } from 'svelte';
 	import { hasVal } from '../Config/ClockConfig/ClockHelper';
+	import type { Readable } from 'svelte/store';
+	import { browser } from '$app/env';
+	import localforage from 'localforage';
 
+	export let audioLabel: string = null;
 	export let seconds = 600;
 	export let active = true;
 	export let stopAtZero = true;
@@ -14,14 +18,22 @@
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 
 	const dispatch = createEventDispatcher();
+	const mediaUpdate = getContext<Readable<string>>('media-update');
 
 	let ms: number = 0;
 	let value: string;
 	let endTime: DateTime;
+	let audioEl: HTMLAudioElement;
+	let audioSrc: string;
 
 	$: hasVal(seconds) ? initClock() : clearClock();
 	$: active ? resume() : pause();
 	$: if (active && $time) tick();
+	$: if (browser && $mediaUpdate && audioEl) loadAudio();
+
+	async function loadAudio() {
+		audioSrc = await localforage.getItem(audioLabel);
+	}
 
 	function clearClock() {
 		active = false;
@@ -32,9 +44,6 @@
 		ms = seconds * 1000;
 		setValue();
 		endTime = DateTime.now().plus({ seconds });
-
-		//Unset seconds so we can take in the same value again.
-		// seconds = null;
 	}
 
 	function tick() {
@@ -43,6 +52,7 @@
 			ms = 0;
 			active = false;
 			dispatch('timerFinished');
+			if (audioEl && audioSrc) audioEl.play();
 		}
 		setValue();
 	}
@@ -70,7 +80,5 @@
 	}
 </script>
 
-<!-- <pre>{value}</pre>
-<pre>{endTime?.toISO()}</pre>
-<pre>{ms}</pre> -->
 <SegmentDisplay {color} {format} {value} {size} animate={ms > 60 * 1000} />
+<audio src={audioSrc} bind:this={audioEl} />

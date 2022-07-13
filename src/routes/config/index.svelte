@@ -10,6 +10,7 @@
 	import equal from 'deep-equal';
 	import { derived } from 'svelte/store';
 	import { fade } from 'svelte/transition';
+import AudioConfig from '../../lib/Config/ImageConfig/AudioConfig.svelte';
 import SliderInput from '../../lib/Forms/SliderInput.svelte';
 	import TextInput from '../../lib/Forms/TextInput.svelte';
 
@@ -89,7 +90,14 @@ import SliderInput from '../../lib/Forms/SliderInput.svelte';
 					<ImageConfig label="Main Logo" name="main-logo" />
 				</div>
 				<div class="mt-4">
-					<SliderInput min="{10}" max="{30}" bind:value={$pendingState.boardSize} label="Board Zoom"/>
+					<hr class="my-4 block">
+					<SliderInput min="{10}" max="{30}" bind:value={$pendingState.boardSize} label="Board Size"/>
+				</div>
+				<div class="mt-4">
+					<AudioConfig label="Buzzer" name="buzzer" />
+				</div>
+				<div class="mt-4">
+					<AudioConfig label="Horn" name="horn" />
 				</div>
 			</div>
 			<div class="w-1/3">

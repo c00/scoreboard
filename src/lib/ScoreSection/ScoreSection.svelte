@@ -4,21 +4,21 @@
 	import hockey from '$lib/assets/hockey.png';
 	import { browser } from '$app/env';
 	import localforage from 'localforage';
+	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
 	export let team: TeamState;
 
+	const mediaUpdate = getContext<Readable<string>>('media-update');
+
 	let src: string = hockey;
 
-	$: if (team && browser) setDataUrl();
+	$: if (team && browser && $mediaUpdate) setDataUrl();
 
 	async function setDataUrl() {
 		const data = await localforage.getItem<string>(`team-${team.side}`);
 		if (data) src = data;
 	}
-
-	// export let image: string;
-	// export let name: string;
-	// export let score: number;
 </script>
 
 <div class="text-center">
