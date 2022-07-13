@@ -1,17 +1,17 @@
 <script lang="ts">
+	import ClockConfig from '$lib/Config/ClockConfig/ClockConfig.svelte';
+	import GoalButton from '$lib/Config/GoalButton/GoalButton.svelte';
+	import ImageConfig from '$lib/Config/ImageConfig/ImageConfig.svelte';
+	import PenaltyConfig from '$lib/Config/PenaltyConfig/PenaltyConfig.svelte';
+	import PeriodConfig from '$lib/Config/PeriodConfig/PeriodConfig.svelte';
 	import TeamConfig from '$lib/Config/TeamConfig/TeamConfig.svelte';
+	import DebugGameState from '$lib/Debug/DebugGameState.svelte';
+	import { gameState, pendingState } from '$lib/GameStores/gameStateStore';
+	import equal from 'deep-equal';
 	import { derived } from 'svelte/store';
 	import { fade } from 'svelte/transition';
-
-	import hockey from '$lib/assets/hockey.png';
-	import ClockConfig from '$lib/Config/ClockConfig/ClockConfig.svelte';
-	import ImageConfig from '$lib/Config/ImageConfig/ImageConfig.svelte';
-	import PeriodConfig from '$lib/Config/PeriodConfig/PeriodConfig.svelte';
-	import equal from 'deep-equal';
-	import { gameState, pendingState } from '../../lib/GameStores/gameStateStore';
-	import DebugGameState from '../../lib/Debug/DebugGameState.svelte';
-	import GoalButton from '../../lib/Config/GoalButton/GoalButton.svelte';
-	import PenaltyConfig from '../../lib/Config/PenaltyConfig/PenaltyConfig.svelte';
+import SliderInput from '../../lib/Forms/SliderInput.svelte';
+	import TextInput from '../../lib/Forms/TextInput.svelte';
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
@@ -51,7 +51,7 @@
 </div>
 
 {#if $pendingState}
-	<div class="container mx-auto px-4">
+	<div class="container mx-auto px-4 pb-10">
 		<div class="alert my-4">
 			<pre>{String($dirty)}</pre>
 			{#if $dirty}
@@ -76,14 +76,20 @@
 				</div>
 			</div>
 			<div class="w-1/3">
-				<div class="mt-20">
+				<div class="mt-16">
+					<TextInput bind:value={$pendingState.title} label="Title" />
+				</div>
+				<div class="mt-4">
 					<ClockConfig bind:clock={$pendingState.mainClock} showStopAtZeroToggle={false} />
 				</div>
 				<div class="mt-4">
 					<PeriodConfig bind:period={$pendingState.period} />
 				</div>
 				<div class="mt-4">
-					<ImageConfig img={hockey} />
+					<ImageConfig label="Main Logo" name="main-logo" />
+				</div>
+				<div class="mt-4">
+					<SliderInput min="{10}" max="{30}" bind:value={$pendingState.boardSize} label="Board Zoom"/>
 				</div>
 			</div>
 			<div class="w-1/3">

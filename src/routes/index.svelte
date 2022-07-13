@@ -10,10 +10,11 @@
 	let files: FileList;
 
 	let imgEl: HTMLImageElement;
+	let audioEl: HTMLAudioElement;
 
 	async function load() {
-		const dataUrl = await localforage.getItem<string>('some-img');
-  	imgEl.src = dataUrl;
+		const dataUrl = await localforage.getItem<string>('some-audio');
+  	audioEl.src = dataUrl;
 	}
 
 	async function store() {
@@ -22,7 +23,7 @@
 		reader.onload = async (e) => {
 			var image = reader.result;
 
-			await localforage.setItem('some-img', image);
+			await localforage.setItem('some-audio', image);
 			console.log('Stored');
 		};
 
@@ -58,4 +59,7 @@ Nothing here!
 
 <button class="btn" on:click={load}>Load stuff</button>
 
+<button class="btn" on:click={() => audioEl.play()}>Play</button>
+
 <img bind:this={imgEl} alt="meh"/>
+<audio bind:this={audioEl} />

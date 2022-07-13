@@ -1,4 +1,6 @@
 export interface GameState {
+	title: string;
+	boardSize: number;
 	mainClock: Clock;
 	period: number;
 	leftTeam: TeamState;
@@ -13,6 +15,7 @@ export interface Clock {
 }
 
 export interface TeamState {
+	side: 'left' | 'right';
 	name: string;
 	image: string;
 	score: number;
@@ -29,6 +32,8 @@ export interface PenaltyState {
 }
 
 export const defaultState: GameState = {
+	title: 'SCOREBOARD',
+	boardSize: 16,
 	mainClock: {
 		active: false,
 		seconds: 60 * 30,
@@ -37,6 +42,7 @@ export const defaultState: GameState = {
 	},
 	period: 1,
 	leftTeam: {
+		side: 'left',
 		name: 'DICK MUNCHERS',
 		image: 'hmm',
 		score: 0,
@@ -64,6 +70,7 @@ export const defaultState: GameState = {
 		}
 	},
 	rightTeam: {
+		side: 'right',
 		name: 'ASS CATCHERS',
 		image: 'hmm',
 		score: 0,

@@ -1,18 +1,19 @@
 <script lang="ts">
-	import ScoreSection from '$lib/ScoreSection/ScoreSection.svelte';
-	import SegmentDisplay from '$lib/SegmentsDisplay/SegmentDisplay.svelte';
-	import team1 from '$lib/assets/team1.png';
-	import team2 from '$lib/assets/team2.png';
-	import PenaltyDisplay from '$lib/PenaltyDisplay/PenaltyDisplay.svelte';
-	import Goalshots from '$lib/Goalshots/Goalshots.svelte';
+import { browser } from '$app/env';
+
 	import hockey from '$lib/assets/hockey.png';
+	import { defaultState,type GameState } from '$lib/GameStores/GameState';
+	import { STORAGE_KEY } from '$lib/GameStores/gameStateStore';
 	import GoalArrow from '$lib/GoalArrow/GoalArrow.svelte';
-	import { defaultState, type GameState } from '$lib/GameStores/GameState';
-	import { onMount } from 'svelte';
+	import Goalshots from '$lib/Goalshots/Goalshots.svelte';
+	import PenaltyDisplay from '$lib/PenaltyDisplay/PenaltyDisplay.svelte';
+	import ScoreSection from '$lib/ScoreSection/ScoreSection.svelte';
 	import SimpleClock from '$lib/SegmentClock/SimpleClock.svelte';
-	import { STORAGE_KEY } from '../../lib/GameStores/gameStateStore';
+	import SegmentDisplay from '$lib/SegmentsDisplay/SegmentDisplay.svelte';
+	import { onMount } from 'svelte';
 
 	let state: GameState = defaultState;
+	let root: HTMLElement;
 
 	$: mainClock = state.mainClock;
 
@@ -22,6 +23,11 @@
 	onMount(() => {
 		const data = localStorage.getItem(STORAGE_KEY);
 		if (data) state = JSON.parse(data);
+
+		if (browser) {
+			root = document.querySelector(":root");
+			root.style.fontSize = `${state.boardSize}px`;
+		}
 	});
 
 	const storageChanged = (event: StorageEvent) => {
@@ -29,6 +35,10 @@
 		if (event.oldValue === event.newValue) return;
 
 		state = JSON.parse(event.newValue);
+
+		if (root) {
+			root.style.fontSize = `${state.boardSize}px`;
+		}
 		console.log('New Values', state);
 	};
 </script>
@@ -40,7 +50,7 @@
 	<section class="flex gap-3 px-4 pt-8">
 		<!-- <div>Ad 1</div> -->
 
-		<div class="grow text-center font-bold text-4xl">NATIONAL ASSHOCKEY CHAMPIONSHIP</div>
+		<div class="grow text-center font-bold text-4xl">{state.title}</div>
 
 		<!-- <div>Ad 2</div> -->
 	</section>
@@ -49,7 +59,7 @@
 	<section class="flex gap-3 px-4 my-8 text-center grow">
 		<div class="flex-1 flex flex-col justify-between">
 			<div class="">
-				<ScoreSection score={state.leftTeam.score} name={state.leftTeam.name} image={team2} />
+				<ScoreSection team={state.leftTeam} />
 			</div>
 			<div class="mt-8">
 				<PenaltyDisplay team={state.leftTeam} clocksActive={state.mainClock.active} />
@@ -92,7 +102,7 @@
 
 		<div class="flex-1 flex flex-col justify-between">
 			<div class="">
-				<ScoreSection score={state.rightTeam.score} name={state.rightTeam.name} image={team1} />
+				<ScoreSection team={state.rightTeam} />
 			</div>
 			<div class="mt-8">
 				<PenaltyDisplay team={state.rightTeam} clocksActive={state.mainClock.active} />

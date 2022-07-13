@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-
 	import hotkeys from 'hotkeys-js';
 	import { onMount } from 'svelte';
 	import { gameState, pendingState } from '../GameStores/gameStateStore';
 
-	export let show = true;
+	export let show = false;
 
 	onMount(() => {
 		if (browser) {
-			hotkeys('ctrl+k', function (event, handler) {
-				// Prevent the default refresh event under WINDOWS system
+			hotkeys('ctrl+k', function (event) {
 				event.preventDefault();
 				show = !show;
 			});
