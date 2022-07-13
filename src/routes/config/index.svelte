@@ -1,18 +1,19 @@
 <script lang="ts">
 	import ClockConfig from '$lib/Config/ClockConfig/ClockConfig.svelte';
 	import GoalButton from '$lib/Config/GoalButton/GoalButton.svelte';
+	import AudioConfig from '$lib/Config/ImageConfig/AudioConfig.svelte';
 	import ImageConfig from '$lib/Config/ImageConfig/ImageConfig.svelte';
 	import PenaltyConfig from '$lib/Config/PenaltyConfig/PenaltyConfig.svelte';
 	import PeriodConfig from '$lib/Config/PeriodConfig/PeriodConfig.svelte';
 	import TeamConfig from '$lib/Config/TeamConfig/TeamConfig.svelte';
 	import DebugGameState from '$lib/Debug/DebugGameState.svelte';
-	import { gameState, pendingState } from '$lib/GameStores/gameStateStore';
+	import SliderInput from '$lib/Forms/SliderInput.svelte';
+	import TextInput from '$lib/Forms/TextInput.svelte';
+	import { gameState,pendingState } from '$lib/GameStores/gameStateStore';
+	import Navbar from '$lib/Navbar/Navbar.svelte';
 	import equal from 'deep-equal';
+	import { cloneDeep } from 'lodash-es';
 	import { derived } from 'svelte/store';
-	import { fade } from 'svelte/transition';
-import AudioConfig from '../../lib/Config/ImageConfig/AudioConfig.svelte';
-import SliderInput from '../../lib/Forms/SliderInput.svelte';
-	import TextInput from '../../lib/Forms/TextInput.svelte';
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
@@ -21,39 +22,18 @@ import SliderInput from '../../lib/Forms/SliderInput.svelte';
 	$: if ($gameState) resetPendingState();
 
 	function resetPendingState() {
-		$pendingState = structuredClone($gameState);
+		$pendingState = cloneDeep($gameState);
 	}
 
 	const commit = () => {
-		$gameState = structuredClone($pendingState);
+		$gameState = cloneDeep($pendingState);
 	};
-
-	let counter = 0;
-	let showHiddenMessage = false;
-	$: if (counter === 10) {
-		showHiddenMessage = true;
-		setTimeout(() => {
-			showHiddenMessage = false;
-			counter = 0;
-		}, 5000);
-	}
 </script>
 
-<div class="navbar bg-primary text-primary-content">
-	<div class="flex-1">
-		<button type="button" on:click={() => counter++} class="btn btn-ghost normal-case text-xl">Scoreboard</button>
-		{#if showHiddenMessage}
-			<span class="ml-4" transition:fade>Stop touching me!</span>
-		{/if}
-	</div>
-	<div class="flex-none mr-4">
-		<a href="/scoreboard" class="hover:text-white" target="_blank">open scoreboard</a>
-	</div>
-</div>
+<Navbar />
 
 {#if $pendingState}
 	<form class="container mx-auto px-4 pb-10">
-
 		<div class="flex gap-8 mt-8 ">
 			<div class="w-1/3">
 				<div class="mb-4">
@@ -68,13 +48,13 @@ import SliderInput from '../../lib/Forms/SliderInput.svelte';
 				</div>
 			</div>
 			<div class="w-1/3">
-				<div class="alert transition-colors mb-4" class:alert-warning={$dirty}>
+				<div class="alert sticky top-2 transition-colors mb-4" class:alert-warning={$dirty}>
 					{#if $dirty}
-						<div>Click the button to apply the latest updates</div>
-						<button type="submit" on:click={commit} class="btn btn-secondary">update</button>
+						<div>Click the button to apply your changes</div>
+						<button type="submit" on:click={commit} class="btn btn-secondary">apply</button>
 					{:else}
 						<div>Everything is up to date</div>
-						<button type="button" disabled class="btn">update</button>
+						<button type="button" disabled class="btn">apply</button>
 					{/if}
 				</div>
 				<div class="mt-10">
@@ -90,8 +70,8 @@ import SliderInput from '../../lib/Forms/SliderInput.svelte';
 					<ImageConfig label="Main Logo" name="main-logo" />
 				</div>
 				<div class="mt-4">
-					<hr class="my-4 block">
-					<SliderInput min="{10}" max="{30}" bind:value={$pendingState.boardSize} label="Board Size"/>
+					<hr class="my-4 block" />
+					<SliderInput min={10} max={30} bind:value={$pendingState.boardSize} label="Board Size" />
 				</div>
 				<div class="mt-4">
 					<AudioConfig label="Buzzer" name="buzzer" />

@@ -1,64 +1,40 @@
 <script lang="ts">
-	import SimpleClock from '$lib/SegmentClock/SimpleClock.svelte';
-	import localforage from 'localforage';
-
-	let seconds = 600;
-	let active = true;
-
-	let finished = false;
-
-	let files: FileList;
-
-	let imgEl: HTMLImageElement;
-	let audioEl: HTMLAudioElement;
-
-	async function load() {
-		const dataUrl = await localforage.getItem<string>('some-audio');
-  	audioEl.src = dataUrl;
-	}
-
-	async function store() {
-		var reader = new FileReader();
-
-		reader.onload = async (e) => {
-			var image = reader.result;
-
-			await localforage.setItem('some-audio', image);
-		};
-
-		reader.readAsDataURL(files.item(0));
-	}
+	import Navbar from '$lib/Navbar/Navbar.svelte';
 </script>
 
-Nothing here!
+<Navbar>
+	<div slot="links">
+		<a href="/config" class="hover:text-white">Setup</a>
+	</div>
+</Navbar>
 
-<div class="">
-	<SimpleClock stopAtZero={true} {active} {seconds} on:timerFinished={() => (finished = true)} />
+<div class="mx-auto bg-slate-50 h-full">
+	<div class="container mx-auto pt-10 h-full">
+		<h1 class="text-2xl">Scoreboard!</h1>
+		<p>
+			This is an experimental Scoreboard project. Set it up by clicking on the <a
+				href="/config"
+				class="btn btn-xs btn-primary">Setup</a
+			>
+			button.You can see the scoreboard by clicking the
+			<a class="btn btn-xs btn-primary" href="/scoreboard">scoreboard</a> button.
+		</p>
+
+		<h2 class="text-xl mt-4">Instructions</h2>
+		<ol class="list-decimal ml-4 mt-2">
+			<li>Go to <a href="/config" class="hover:underline text-primary">setup</a>. Configure your scoreboard.</li>
+			<li>Make the necessary setup, and click <span class="badge badge-accent">apply</span>.</li>
+			<li>Go to the <a href="/config" class="hover:underline text-primary">Scoreboard</a>. See the results.</li>
+			<li>You can make more changes to the configuration. They will be applied when clicking <span class="badge badge-accent">apply</span>.</li>
+		</ol>
+
+		<p class="pt-4 ">Note that the following are applied instantly (and don't require the apply button):</p>
+
+		<ul class="list-disc ml-4 mt-2">
+			<li>The Goal Buttons (They light up the Goal Arrow and play the horn sound).</li>
+			<li>Images (They are updated instantly)</li>
+			<li>Sounds (They are updated instantly)</li>
+		</ul>
+
+	</div>
 </div>
-
-<div>{finished ? 'FINISHED!' : '...'}</div>
-
-<div class="mt-4">
-	<button class="btn btn-primary mx-4" on:click={() => (active = !active)}
-		>Turn {active ? 'off' : 'on'}</button
-	>
-	<button class="btn btn-accent mx-4 my-1" on:click={() => (seconds = 600 + Math.random())}>
-		RESET
-	</button>
-</div>
-
-<hr />
-
-<label
-	>File thing
-	<input bind:files type="file" />
-</label>
-
-<button class="btn" on:click={store}>Store stuff</button>
-
-<button class="btn" on:click={load}>Load stuff</button>
-
-<button class="btn" on:click={() => audioEl.play()}>Play</button>
-
-<img bind:this={imgEl} alt="meh"/>
-<audio bind:this={audioEl} />
