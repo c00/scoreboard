@@ -1,6 +1,7 @@
 export interface GameState {
 	title: string;
 	boardSize: number;
+	boardTheme: string;
 	mainClock: Clock;
 	period: number;
 	leftTeam: TeamState;
@@ -34,6 +35,7 @@ export interface PenaltyState {
 export const defaultState: GameState = {
 	title: 'SCOREBOARD',
 	boardSize: 16,
+	boardTheme: 'dark',
 	mainClock: {
 		active: false,
 		seconds: 60 * 30,

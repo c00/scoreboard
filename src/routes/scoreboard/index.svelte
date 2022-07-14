@@ -20,14 +20,15 @@
 	$: mainClock = $state.mainClock;
 	$: leftGoalArrowColor = $state.leftTeam.activeGoal ? 'orange' : '';
 	$: rightGoalArrowColor = $state.rightTeam.activeGoal ? 'orange' : '';
-	$: if ($state && root) setSize();
+	$: if ($state && root) setRootProperties();
 
 	onMount(() => {
 		if (browser) root = document.querySelector(':root');
 	});
 
-	function setSize() {
+	function setRootProperties() {
 		root.style.fontSize = `${$state.boardSize}px`;
+		root.setAttribute('data-theme', $state.boardTheme);
 	}
 </script>
 
