@@ -11,6 +11,10 @@
 			counter = 0;
 		}, 5000);
 	}
+
+	function openScoreboard() {
+		window.open("/scoreboard");
+	}
 </script>
 
 <div class="navbar bg-primary text-primary-content">
@@ -24,7 +28,7 @@
 	</div>
 	<div class="flex-none mr-4">
 		<slot name="links">
-			<a href="/scoreboard" class="hover:text-white" target="_blank">open scoreboard</a>
+			<a on:click|preventDefault={openScoreboard} href="/scoreboard" class="hover:text-white" target="_blank">open scoreboard</a>
 		</slot>
 	</div>
 	<div class="flex-none mr-4">
