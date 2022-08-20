@@ -3,6 +3,8 @@ export interface GameState {
 	boardSize: number;
 	boardTheme: string;
 	mainClock: Clock;
+	altClock: Clock;
+	useClock: 'main' | 'alt';
 	period: number;
 	leftTeam: TeamState;
 	rightTeam: TeamState;
@@ -36,9 +38,16 @@ export const defaultState: GameState = {
 	title: 'SCOREBOARD',
 	boardSize: 16,
 	boardTheme: 'dark',
+	useClock: 'main',
 	mainClock: {
 		active: false,
 		seconds: 60 * 30,
+		startedAt: 1,
+		stopAtZero: true
+	},
+	altClock: {
+		active: false,
+		seconds: 60 * 10,
 		startedAt: 1,
 		stopAtZero: true
 	},

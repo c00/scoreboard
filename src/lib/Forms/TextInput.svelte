@@ -7,13 +7,14 @@
 	export let value: string;
 	export let readonly = false;
 	export let placeholder: string = 'Type here';
+	export let active = false;
 </script>
 
 <div class="form-control w-full">
 	{#if label}
 		<!-- content here -->
 		<label class="label" for={nameId}>
-			<span class="label-text">{label}</span>
+			<span class="label-text" class:active>{label}</span>
 		</label>
 	{/if}
 	<input
@@ -26,3 +27,21 @@
 		class="input input-bordered w-full "
 	/>
 </div>
+
+<style>
+	.active {
+		@apply font-semibold;
+		animation: highlight 4s;
+	}
+
+	@keyframes highlight {
+		10%, 50% {
+			@apply text-primary;
+
+		}
+	  100% {
+			@apply text-current;
+		}
+
+	}
+</style>

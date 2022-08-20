@@ -16,6 +16,8 @@
 	import { derived } from 'svelte/store';
 	import Listener from '$lib/hotkeys/Listener.svelte';
 	import { currentEvent, HotkeyAction } from '$lib/hotkeys/hotkeyStore';
+	import type { Clock } from '../../lib/GameStores/GameState';
+	import { DateTime } from 'luxon';
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
@@ -39,7 +41,36 @@
 		$pendingState = cloneDeep($gameState);
 	}
 
+	function setClockTimes(conf: Clock, prev: Clock) {
+		//this doesn't fully work on switch, as the clocks are switched out...
+		// Add alt Clock to config
+		// Set als clock to disabled on commit
+		// Them this will work.
+
+		if (!prev.active && conf.active) {
+			conf.startedAt = DateTime.now().toSeconds();
+		} else if (prev.active && !conf.active) {
+			const runningFor = DateTime.now().toSeconds() - prev.startedAt;
+			conf.seconds -= runningFor;
+			if (conf.seconds <= 0) {
+				conf.seconds = 0;
+			}
+		}
+	}
+
 	const commit = () => {
+		//Alt clocks don't run.
+		if ($pendingState.useClock === 'main') {
+			$pendingState.altClock.active = false;
+		} else {
+			$pendingState.mainClock.active = false;
+		}
+
+		console.log('Setting Main Clock', $pendingState.mainClock, $gameState.mainClock);
+		setClockTimes($pendingState.mainClock, $gameState.mainClock);
+		console.log('Setting Alt Clock', $pendingState.altClock, $gameState.altClock);
+		setClockTimes($pendingState.altClock, $gameState.altClock);
+
 		$gameState = cloneDeep($pendingState);
 		$currentEvent = null;
 	};
@@ -129,7 +160,12 @@
 					<TextInput bind:value={$pendingState.title} label="Title" />
 				</div>
 				<div class="mt-4">
-					<ClockConfig bind:clock={$pendingState.mainClock} showStopAtZeroToggle={false} />
+					<ClockConfig
+						bind:clock={$pendingState.mainClock}
+						bind:altClock={$pendingState.altClock}
+						bind:useClock={$pendingState.useClock}
+						showStopAtZeroToggle={false}
+					/>
 				</div>
 				<div class="mt-4">
 					<PeriodConfig bind:period={$pendingState.period} />

@@ -1,6 +1,6 @@
-import { browser } from "$app/env";
-import { writable } from "svelte/store";
-import { defaultState, type GameState } from "./GameState";
+import { browser } from '$app/env';
+import { writable } from 'svelte/store';
+import { defaultState, type GameState } from './GameState';
 
 //Load initial gamestate
 export const STORAGE_KEY = 'gamestate';
@@ -19,6 +19,11 @@ function createGameStateStore() {
 		state = defaultState;
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 	}
+
+	//Workaround for new features
+	if (!state.altClock) state.altClock = { ...defaultState.altClock };
+	if (!state.useClock) state.useClock = 'main';
+
 	const store = writable<GameState>(state);
 
 	store.subscribe((v) => {

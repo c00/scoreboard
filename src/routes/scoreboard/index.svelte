@@ -17,7 +17,7 @@
 	let root: HTMLElement;
 	const state = storageReadable(STORAGE_KEY, defaultState);
 
-	$: mainClock = $state.mainClock;
+	$: mainClock = $state.useClock === 'main' ? $state.mainClock : $state.altClock;
 	$: leftGoalArrowColor = $state.leftTeam.activeGoal ? 'orange' : '';
 	$: rightGoalArrowColor = $state.rightTeam.activeGoal ? 'orange' : '';
 	$: if ($state && root) setRootProperties();

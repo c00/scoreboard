@@ -4,6 +4,7 @@
 
 	export let seconds: number;
 	export let label: string;
+	export let active = false;
 
 	let error: string;
 	let input: string;
@@ -36,7 +37,7 @@
 	}
 </script>
 
-<TextInput bind:value={input} {label} placeholder="e.g. 10:00" />
+<TextInput {active} bind:value={input} {label} placeholder="e.g. 10:00" />
 <div class="mt-1 hint-area">
 	{#if error}
 		<div class="text-error">{error}</div>

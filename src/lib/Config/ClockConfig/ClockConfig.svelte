@@ -6,34 +6,50 @@
 	import SwitchIcon from './SwitchIcon.svelte';
 
 	export let clock: Clock;
+	export let altClock: Clock = null;
+	export let useClock: 'main' | 'alt';
 	export let showStopAtZeroToggle = true;
-	export let showAltClock = true;
 
-	let altClockSeconds: number = 600;
-
+	$: showAltClock = Boolean(altClock);
 	$: activeLabel = clock.active ? 'Clock is running' : 'Clock stopped';
 	$: if ($currentEvent === HotkeyAction.SWITCH_MAIN_CLOCK) {
 		switchClocks();
 		$currentEvent = HotkeyAction.COMMIT;
 	}
 
+	$: selectedClock = useClock === 'main' ? clock : altClock;
+
 	function switchClocks() {
-		const alt = altClockSeconds;
-		altClockSeconds = clock.seconds;
-		clock.seconds = alt;
+		if (useClock === 'alt') {
+			useClock = 'main';
+			if (altClock.active) clock.active = true;
+		} else {
+			useClock = 'alt';
+			if (clock.active) altClock.active = true;
+		}
 	}
 </script>
 
-<Toggle bind:checked={clock.active} label={activeLabel} />
-<ClockTimeInput bind:seconds={clock.seconds} label="Main Clock" />
+<!-- todo this makes no sense anymore with the setting of the clocks. Apply the new logic properly. -->
+
+<Toggle bind:checked={selectedClock.active} label={activeLabel} />
+<ClockTimeInput
+	active={useClock === 'main'}
+	bind:seconds={clock.seconds}
+	label="Main Clock{useClock === 'main' ? ' (Active)' : ''}"
+/>
 
 {#if showAltClock}
 	<div class="text-center">
 		<button on:click={switchClocks} type="button" class="btn btn-sm btn-primary"
-			>switch <SwitchIcon /></button
+			>switch to {useClock === 'main' ? 'alternative' : 'main' } clock <SwitchIcon /></button
 		>
 	</div>
-	<ClockTimeInput bind:seconds={altClockSeconds} label="Alternative Clock" />
+	<ClockTimeInput
+		active={useClock === 'alt'}
+		bind:seconds={altClock.seconds}
+		label="Alternative Clock{useClock === 'alt' ? ' (Active)' : ''}"
+	/>
 {/if}
 
 {#if showStopAtZeroToggle}
