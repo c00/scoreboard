@@ -7,6 +7,7 @@
 	import type { Readable } from 'svelte/store';
 	import { browser } from '$app/env';
 	import localforage from 'localforage';
+	import { currentEvent, HotkeyAction } from '$lib/hotkeys/hotkeyStore';
 
 	export let audioLabel: string = null;
 	export let seconds = 600;
@@ -30,9 +31,15 @@
 	$: active ? resume() : pause();
 	$: if (active && $time) tick();
 	$: if (browser && $mediaUpdate && audioEl) loadAudio();
+	$: if ($currentEvent === HotkeyAction.BUZZER) soundBuzzer();
 
 	async function loadAudio() {
 		audioSrc = await localforage.getItem(audioLabel);
+	}
+
+	function soundBuzzer() {
+		if (audioLabel !== 'buzzer') return;
+		if (audioEl && audioSrc) audioEl.play();
 	}
 
 	function clearClock() {
