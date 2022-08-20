@@ -26,6 +26,7 @@
 	let endTime: DateTime;
 	let audioEl: HTMLAudioElement;
 	let audioSrc: string;
+	let buzzed = false;
 
 	$: hasVal(seconds) ? initClock() : clearClock();
 	$: active ? resume() : pause();
@@ -48,6 +49,7 @@
 	}
 
 	function initClock() {
+		buzzed = false;
 		ms = seconds * 1000;
 		setValue();
 		endTime = DateTime.now().plus({ seconds });
@@ -59,7 +61,10 @@
 			ms = 0;
 			active = false;
 			dispatch('timerFinished');
-			if (audioEl && audioSrc) audioEl.play();
+			if (!buzzed && audioEl && audioSrc) {
+				buzzed = true
+				audioEl.play();
+			}
 		}
 		setValue();
 	}
