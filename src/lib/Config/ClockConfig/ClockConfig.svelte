@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { currentEvent, HotkeyAction } from '$lib/hotkeys/hotkeyStore';
 	import ClockTimeInput from '../../Forms/ClockTimeInput.svelte';
 	import Toggle from '../../Forms/Toggle.svelte';
 	import type { Clock } from '../../GameStores/GameState';
@@ -11,6 +12,10 @@
 	let altClockSeconds: number = 600;
 
 	$: activeLabel = clock.active ? 'Clock is running' : 'Clock stopped';
+	$: if ($currentEvent === HotkeyAction.SWITCH_MAIN_CLOCK) {
+		switchClocks();
+		$currentEvent = HotkeyAction.COMMIT;
+	}
 
 	function switchClocks() {
 		const alt = altClockSeconds;
@@ -24,7 +29,9 @@
 
 {#if showAltClock}
 	<div class="text-center">
-		<button on:click={switchClocks} type="button" class="btn btn-sm btn-primary">switch <SwitchIcon /></button>
+		<button on:click={switchClocks} type="button" class="btn btn-sm btn-primary"
+			>switch <SwitchIcon /></button
+		>
 	</div>
 	<ClockTimeInput bind:seconds={altClockSeconds} label="Alternative Clock" />
 {/if}

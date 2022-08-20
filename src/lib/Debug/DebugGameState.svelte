@@ -8,10 +8,12 @@
 
 	onMount(() => {
 		if (browser) {
-			hotkeys('ctrl+k', function (event) {
+			hotkeys('ctrl+`', function (event) {
 				event.preventDefault();
 				show = !show;
 			});
+
+			return () => hotkeys.unbind('ctrl+`');
 		}
 	});
 </script>

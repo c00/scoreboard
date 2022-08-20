@@ -9,17 +9,31 @@
 	import DebugGameState from '$lib/Debug/DebugGameState.svelte';
 	import SliderInput from '$lib/Forms/SliderInput.svelte';
 	import TextInput from '$lib/Forms/TextInput.svelte';
-	import { gameState,pendingState } from '$lib/GameStores/gameStateStore';
+	import { gameState, pendingState } from '$lib/GameStores/gameStateStore';
 	import Navbar from '$lib/Navbar/Navbar.svelte';
 	import equal from 'deep-equal';
 	import { cloneDeep } from 'lodash-es';
 	import { derived } from 'svelte/store';
+	import Listener from '$lib/hotkeys/Listener.svelte';
+	import { currentEvent, HotkeyAction } from '$lib/hotkeys/hotkeyStore';
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
 	});
 
 	$: if ($gameState) resetPendingState();
+	$: if ($currentEvent === HotkeyAction.TOGGLE_ALL_CLOCKS) toggleAllClocks();
+	$: if ($currentEvent === HotkeyAction.TOGGLE_MAIN_CLOCK) toggleMainClock();
+	$: if ($currentEvent === HotkeyAction.COMMIT) commit();
+	$: if (
+		[
+			HotkeyAction.TOGGLE_PENALTY_CLOCK_1_LEFT,
+			HotkeyAction.TOGGLE_PENALTY_CLOCK_2_LEFT,
+			HotkeyAction.TOGGLE_PENALTY_CLOCK_1_RIGHT,
+			HotkeyAction.TOGGLE_PENALTY_CLOCK_2_RIGHT,
+		].includes($currentEvent)
+	)
+		togglePenaltyClock();
 
 	function resetPendingState() {
 		$pendingState = cloneDeep($gameState);
@@ -27,17 +41,71 @@
 
 	const commit = () => {
 		$gameState = cloneDeep($pendingState);
+		$currentEvent = null;
+	};
+
+	const openScoreboard = () => {
+		window.open('/scoreboard');
+	};
+
+	const toggleAllClocks = () => {
+		const state = !$pendingState.mainClock.active;
+		$pendingState.mainClock.active = state;
+		if ($pendingState.leftTeam.penalty1.player) $pendingState.leftTeam.penalty1.active = state;
+		if ($pendingState.leftTeam.penalty2.player) $pendingState.leftTeam.penalty2.active = state;
+		if ($pendingState.rightTeam.penalty1.player) $pendingState.rightTeam.penalty1.active = state;
+		if ($pendingState.rightTeam.penalty2.player) $pendingState.rightTeam.penalty2.active = state;
+		commit();
+		$currentEvent = null;
+	};
+
+	const toggleMainClock = () => {
+		$pendingState.mainClock.active = !$pendingState.mainClock.active;
+		commit();
+		$currentEvent = null;
+	};
+
+	const togglePenaltyClock = () => {
+		switch ($currentEvent) {
+			case HotkeyAction.TOGGLE_PENALTY_CLOCK_1_LEFT:
+				$pendingState.leftTeam.penalty1.active = !$pendingState.leftTeam.penalty1.active;
+				break;
+			case HotkeyAction.TOGGLE_PENALTY_CLOCK_2_LEFT:
+				$pendingState.leftTeam.penalty2.active = !$pendingState.leftTeam.penalty2.active;
+				break;
+			case HotkeyAction.TOGGLE_PENALTY_CLOCK_1_RIGHT:
+				$pendingState.rightTeam.penalty1.active = !$pendingState.rightTeam.penalty1.active;
+				break;
+			case HotkeyAction.TOGGLE_PENALTY_CLOCK_2_RIGHT:
+				$pendingState.rightTeam.penalty2.active = !$pendingState.rightTeam.penalty2.active;
+				break;
+			default:
+				return;
+		}
+
+		commit();
+		$currentEvent = null;
 	};
 </script>
 
-<Navbar />
+<Navbar>
+	<svelte:fragment slot="links">
+		<a href="/config/hotkeys" class="hover:text-white">hotkeys</a>
+		<a
+			on:click|preventDefault={openScoreboard}
+			href="/scoreboard"
+			class="hover:text-white"
+			target="_blank">open scoreboard</a
+		>
+	</svelte:fragment>
+</Navbar>
 
 {#if $pendingState}
 	<form class="container mx-auto px-4 pb-10">
 		<div class="flex gap-8 mt-8 ">
 			<div class="w-1/3">
 				<div class="mb-4">
-					<GoalButton bind:value={$gameState.leftTeam.activeGoal} />
+					<GoalButton bind:value={$gameState.leftTeam.activeGoal} side="left" />
 				</div>
 				<div class="mb-4">
 					<TeamConfig bind:team={$pendingState.leftTeam} />
@@ -82,7 +150,7 @@
 			</div>
 			<div class="w-1/3">
 				<div class="mb-4">
-					<GoalButton bind:value={$gameState.rightTeam.activeGoal} />
+					<GoalButton bind:value={$gameState.rightTeam.activeGoal} side="right" />
 				</div>
 				<div class="mb-4">
 					<TeamConfig bind:team={$pendingState.rightTeam} />
@@ -96,4 +164,5 @@
 	</form>
 {/if}
 
+<Listener />
 <DebugGameState />

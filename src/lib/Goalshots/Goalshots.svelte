@@ -20,12 +20,12 @@ import type { Readable } from 'svelte/store';
 	}
 </script>
 
-<div class="flex justify-center">
+<div class="flex justify-center items-center">
 	<div>
 		<SegmentDisplay size="sm" format="  " color="orange" value={leftValue} />
 	</div>
 	<div>
-		<img class="w-24 p-4" src={logo} alt="Scoreboard Logo" />
+		<img class="w-28 mx-8 my-4" src={logo} alt="Scoreboard Logo" />
 	</div>
 	<div>
 		<SegmentDisplay size="sm" format="  " color="orange" value={rightValue} />

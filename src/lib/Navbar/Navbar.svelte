@@ -26,7 +26,7 @@
 			<span class="ml-4" transition:fade>Stop touching me!</span>
 		{/if}
 	</div>
-	<div class="flex-none mr-4">
+	<div class="flex-none mr-4 gap-4">
 		<slot name="links">
 			<a on:click|preventDefault={openScoreboard} href="/scoreboard" class="hover:text-white" target="_blank">open scoreboard</a>
 		</slot>
