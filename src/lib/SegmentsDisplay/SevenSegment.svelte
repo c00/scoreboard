@@ -47,13 +47,13 @@
 			.d,
 			.e,
 			.f {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-1 {
 			.b,
 			.c {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-2 {
@@ -62,7 +62,7 @@
 			.d,
 			.e,
 			.g {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-3 {
@@ -71,7 +71,7 @@
 			.c,
 			.d,
 			.g {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-4 {
@@ -79,7 +79,7 @@
 			.c,
 			.f,
 			.g {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-5 {
@@ -88,7 +88,7 @@
 			.d,
 			.f,
 			.g {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-6 {
@@ -98,14 +98,14 @@
 			.e,
 			.f,
 			.g {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-7 {
 			.a,
 			.b,
 			.c {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-8 {
@@ -116,7 +116,7 @@
 			.e,
 			.f,
 			.g {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-9 {
@@ -126,17 +126,17 @@
 			.d,
 			.f,
 			.g {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-- {
 			.g {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 		&.digit-_ {
 			.d {
-				@apply text-slate-200;
+				color: var(--scoreboard-text);
 			}
 		}
 	}
@@ -149,13 +149,13 @@
 			.d,
 			.e,
 			.f {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-1 {
 			.b,
 			.c {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-2 {
@@ -164,7 +164,7 @@
 			.d,
 			.e,
 			.g {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-3 {
@@ -173,7 +173,7 @@
 			.c,
 			.d,
 			.g {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-4 {
@@ -181,7 +181,7 @@
 			.c,
 			.f,
 			.g {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-5 {
@@ -190,7 +190,7 @@
 			.d,
 			.f,
 			.g {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-6 {
@@ -200,14 +200,14 @@
 			.e,
 			.f,
 			.g {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-7 {
 			.a,
 			.b,
 			.c {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-8 {
@@ -218,7 +218,7 @@
 			.e,
 			.f,
 			.g {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-9 {
@@ -228,17 +228,17 @@
 			.d,
 			.f,
 			.g {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-- {
 			.g {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 		&.digit-_ {
 			.d {
-				@apply text-red-700;
+				color: var(--scoreboard-warn);
 			}
 		}
 	}
@@ -251,13 +251,13 @@
 			.d,
 			.e,
 			.f {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-1 {
 			.b,
 			.c {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-2 {
@@ -266,7 +266,7 @@
 			.d,
 			.e,
 			.g {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-3 {
@@ -275,7 +275,7 @@
 			.c,
 			.d,
 			.g {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-4 {
@@ -283,7 +283,7 @@
 			.c,
 			.f,
 			.g {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-5 {
@@ -292,7 +292,7 @@
 			.d,
 			.f,
 			.g {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-6 {
@@ -302,14 +302,14 @@
 			.e,
 			.f,
 			.g {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-7 {
 			.a,
 			.b,
 			.c {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-8 {
@@ -320,7 +320,7 @@
 			.e,
 			.f,
 			.g {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-9 {
@@ -330,17 +330,17 @@
 			.d,
 			.f,
 			.g {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-- {
 			.g {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 		&.digit-_ {
 			.d {
-				@apply text-amber-600;
+				color: var(--scoreboard-accent);
 			}
 		}
 	}
@@ -355,13 +355,13 @@
 			.d,
 			.e,
 			.f {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-1 {
 			.b,
 			.c {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-2 {
@@ -370,7 +370,7 @@
 			.d,
 			.e,
 			.g {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-3 {
@@ -379,7 +379,7 @@
 			.c,
 			.d,
 			.g {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-4 {
@@ -387,7 +387,7 @@
 			.c,
 			.f,
 			.g {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-5 {
@@ -396,7 +396,7 @@
 			.d,
 			.f,
 			.g {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-6 {
@@ -406,14 +406,14 @@
 			.e,
 			.f,
 			.g {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-7 {
 			.a,
 			.b,
 			.c {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-8 {
@@ -424,7 +424,7 @@
 			.e,
 			.f,
 			.g {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-9 {
@@ -434,17 +434,17 @@
 			.d,
 			.f,
 			.g {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-- {
 			.g {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 		&.digit-_ {
 			.d {
-				@apply text-emerald-500;
+				color: var(--scoreboard-success);
 			}
 		}
 	}

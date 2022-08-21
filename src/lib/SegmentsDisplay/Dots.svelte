@@ -18,15 +18,15 @@
 		@apply text-zinc-200;
 
 		&.green {
-			@apply text-emerald-500;
+			color: var(--scoreboard-success);
 		}
 
 		&.red {
-			@apply text-red-700;
+			color: var(--scoreboard-warn);
 		}
 
 		&.orange {
-			@apply text-amber-600;
+			color: var(--scoreboard-accent);
 		}
 	}
 

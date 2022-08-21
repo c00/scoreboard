@@ -11,6 +11,7 @@
 	import { onMount, setContext } from 'svelte';
 	import { storageReadable } from '$lib/Stores/StorageReadable';
 	import { browser } from '$app/env';
+	import { scoreboardThemes } from '../../lib/Theme/Theme';
 
 	setContext('media-update', storageReadable('media-update'));
 
@@ -28,7 +29,15 @@
 
 	function setRootProperties() {
 		root.style.fontSize = `${$state.boardSize}px`;
-		root.setAttribute('data-theme', $state.boardTheme);
+
+		//Set Theme
+		const theme = scoreboardThemes[$state.boardTheme] || scoreboardThemes.red;
+
+		root.style.setProperty('--scoreboard-background', theme.background);
+		root.style.setProperty('--scoreboard-text', theme.text);
+		root.style.setProperty('--scoreboard-success', theme.success);
+		root.style.setProperty('--scoreboard-accent', theme.accent);
+		root.style.setProperty('--scoreboard-warn', theme.warn);
 	}
 </script>
 
@@ -36,7 +45,7 @@
 	<title>{$state.title}</title>
 </svelte:head>
 
-<div class="w-full h-full bg-red-800 text-white flex flex-col">
+<div class="w-full h-full board text-white flex flex-col">
 	<!-- Header -->
 	<section class="flex gap-3 px-4 pt-8">
 		<!-- <div>Ad 1</div> -->
@@ -102,3 +111,10 @@
 		</div>
 	</section>
 </div>
+
+<style>
+	.board {
+		background-color: var(--scoreboard-background);
+		color: var(--scoreboard-text);
+	}
+</style>

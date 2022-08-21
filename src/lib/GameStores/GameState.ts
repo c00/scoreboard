@@ -36,7 +36,7 @@ export interface PenaltyState {
 export const defaultState: GameState = {
 	title: 'SCOREBOARD',
 	boardSize: 16,
-	boardTheme: 'dark',
+	boardTheme: 'red',
 	useClock: 'main',
 	mainClock: {
 		active: false,

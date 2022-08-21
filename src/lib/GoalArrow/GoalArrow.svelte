@@ -42,15 +42,19 @@
 		@apply rotate-90;
 	}
 
-	.orange {
-		@apply text-amber-600;
-	}
-
 	.slate {
 		@apply text-slate-600;
 	}
 
+	.green {
+		color: var(--scoreboard-success);
+	}
+
 	.red {
-		@apply text-red-600;
+		color: var(--scoreboard-warn);
+	}
+
+	.orange {
+		color: var(--scoreboard-accent);
 	}
 </style>

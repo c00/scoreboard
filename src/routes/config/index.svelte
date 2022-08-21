@@ -17,13 +17,17 @@
 	import { cloneDeep } from 'lodash-es';
 	import { DateTime } from 'luxon';
 	import { derived } from 'svelte/store';
+import SelectInput from '../../lib/Forms/SelectInput.svelte';
 	import type { Clock } from '../../lib/GameStores/GameState';
+	import { scoreboardThemes } from '../../lib/Theme/Theme';
 	import Toasts from '../../lib/Toasts/Toasts.svelte';
 	import { addToast } from '../../lib/Toasts/ToastStore';
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
 	});
+
+	const themes = Object.keys(scoreboardThemes);
 
 	$: if ($gameState) resetPendingState();
 	$: if ($currentEvent === HotkeyAction.TOGGLE_ALL_CLOCKS) toggleAllClocks();
@@ -221,6 +225,9 @@
 				<div class="mt-4">
 					<hr class="my-4 block" />
 					<SliderInput min={10} max={30} bind:value={$pendingState.boardSize} label="Board Size" />
+				</div>
+				<div class="mt-4">
+					<SelectInput bind:value={$pendingState.boardTheme} label="Board Theme" options={themes} />
 				</div>
 				<div class="mt-4">
 					<AudioConfig label="Clock Buzzer" name="buzzer" />
