@@ -1,8 +1,7 @@
 <script lang="ts">
-	import HotkeyConfigForm from '../../lib/hotkeys/HotkeyConfigForm.svelte';
-	import { defaultHotkeys, hotkeyStore } from '../../lib/hotkeys/hotkeyStore';
-
-	import Navbar from '../../lib/Navbar/Navbar.svelte';
+	import HotkeyConfigForm from '$lib/hotkeys/HotkeyConfigForm.svelte';
+	import { defaultHotkeys, hotkeyStore } from '$lib/hotkeys/hotkeyStore';
+	import Navbar from '$lib/Navbar/Navbar.svelte';
 
 	function reset() {
 		hotkeyStore.set(defaultHotkeys);
