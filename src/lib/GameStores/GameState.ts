@@ -29,7 +29,6 @@ export interface TeamState {
 }
 
 export interface PenaltyState {
-	active: boolean;
 	player: number;
 	clock: Clock;
 }
@@ -43,13 +42,13 @@ export const defaultState: GameState = {
 		active: false,
 		seconds: 60 * 30,
 		startedAt: 1,
-		stopAtZero: true
+		stopAtZero: true,
 	},
 	altClock: {
 		active: false,
 		seconds: 60 * 10,
 		startedAt: 1,
-		stopAtZero: true
+		stopAtZero: true,
 	},
 	period: 1,
 	leftTeam: {
@@ -60,25 +59,23 @@ export const defaultState: GameState = {
 		goalShots: 0,
 		activeGoal: false,
 		penalty1: {
-			active: false,
 			clock: {
 				active: false,
 				seconds: 60 * 30,
 				startedAt: 1,
-				stopAtZero: true
+				stopAtZero: true,
 			},
-			player: null
+			player: null,
 		},
 		penalty2: {
-			active: false,
 			clock: {
 				active: false,
 				seconds: 60 * 30,
 				startedAt: 1,
-				stopAtZero: true
+				stopAtZero: true,
 			},
-			player: null
-		}
+			player: null,
+		},
 	},
 	rightTeam: {
 		side: 'right',
@@ -88,24 +85,22 @@ export const defaultState: GameState = {
 		goalShots: 0,
 		activeGoal: false,
 		penalty1: {
-			active: false,
 			clock: {
 				active: false,
 				seconds: 60 * 30,
 				startedAt: 1,
-				stopAtZero: true
+				stopAtZero: true,
 			},
-			player: null
+			player: null,
 		},
 		penalty2: {
-			active: false,
 			clock: {
 				active: false,
 				seconds: 60 * 30,
 				startedAt: 1,
-				stopAtZero: true
+				stopAtZero: true,
 			},
-			player: null
-		}
-	}
+			player: null,
+		},
+	},
 };

@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let label: string;
 	export let checked: boolean;
-  export let color: string = "primary";
+	export let color = 'primary';
 </script>
 
 <div class="form-control">

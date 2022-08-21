@@ -6,7 +6,7 @@
 	export let label: string = '';
 	export let value: string;
 	export let readonly = false;
-	export let placeholder: string = 'Type here';
+	export let placeholder = 'Type here';
 	export let active = false;
 </script>
 
@@ -35,13 +35,12 @@
 	}
 
 	@keyframes highlight {
-		10%, 50% {
+		10%,
+		50% {
 			@apply text-primary;
-
 		}
-	  100% {
+		100% {
 			@apply text-current;
 		}
-
 	}
 </style>

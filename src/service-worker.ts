@@ -5,7 +5,7 @@ import { build, files, version } from '$service-worker';
 // `files` is an array of everything in the `static` directory
 // `version` is the current version of the app
 
-const worker = (self as unknown) as ServiceWorkerGlobalScope;
+const worker = self as unknown as ServiceWorkerGlobalScope;
 
 const FILES = `cache${version}`;
 
@@ -19,7 +19,7 @@ worker.addEventListener('install', (event) => {
 			.then((cache) => cache.addAll(to_cache))
 			.then(() => {
 				worker.skipWaiting();
-			})
+			}),
 	);
 });
 
@@ -32,7 +32,7 @@ worker.addEventListener('activate', (event) => {
 			}
 
 			worker.clients.claim();
-		})
+		}),
 	);
 });
 
@@ -76,7 +76,7 @@ worker.addEventListener('fetch', (event) => {
 				const cachedAsset = isStaticAsset && (await caches.match(event.request));
 
 				return cachedAsset || fetchAndCache(event.request);
-			})()
+			})(),
 		);
 	}
 });

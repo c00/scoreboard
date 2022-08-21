@@ -11,13 +11,12 @@
 	export let showStopAtZeroToggle = true;
 
 	$: showAltClock = Boolean(altClock);
-	$: activeLabel = clock.active ? 'Clock is running' : 'Clock stopped';
 	$: if ($currentEvent === HotkeyAction.SWITCH_MAIN_CLOCK) {
 		switchClocks();
 		$currentEvent = HotkeyAction.COMMIT;
 	}
-
 	$: selectedClock = useClock === 'main' ? clock : altClock;
+	$: activeLabel = selectedClock.active ? 'Clock is running' : 'Clock stopped';
 
 	function switchClocks() {
 		if (useClock === 'alt') {
@@ -42,7 +41,7 @@
 {#if showAltClock}
 	<div class="text-center">
 		<button on:click={switchClocks} type="button" class="btn btn-sm btn-primary"
-			>switch to {useClock === 'main' ? 'alternative' : 'main' } clock <SwitchIcon /></button
+			>switch to {useClock === 'main' ? 'alternative' : 'main'} clock <SwitchIcon /></button
 		>
 	</div>
 	<ClockTimeInput

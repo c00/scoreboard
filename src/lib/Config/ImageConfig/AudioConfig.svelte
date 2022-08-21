@@ -58,7 +58,7 @@
 			<div>
 				<h2 class="card-title">{label}</h2>
 				<div>
-					<button type="button" class="btn btn-xs btn-ghost" on:click={playToggle} disabled={!Boolean(src)}>
+					<button type="button" class="btn btn-xs btn-ghost" on:click={playToggle} disabled={!src}>
 						{playing ? 'Pause' : 'Play'}
 					</button>
 				</div>

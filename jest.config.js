@@ -5,7 +5,7 @@ export default {
 	moduleNameMapper: { '^lodash-es$': 'lodash' },
 	moduleFileExtensions: ['js', 'json', 'ts'],
 	rootDir: '.',
-	testRegex: '.spec.ts$'
+	testRegex: '.spec.ts$',
 	// transform: {
 	// 	'^.+\\.(t|j)s$': 'ts-jest'
 	// },

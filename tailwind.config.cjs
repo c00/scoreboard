@@ -2,14 +2,14 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {},
 	},
 	plugins: [require('daisyui')],
 	daisyui: {
 		themes: [
-			'winter', 
-      'light',
-      'dark',
+			'winter',
+			'light',
+			'dark',
 			{
 				'custom-theme': {
 					primary: '#e8f495',
@@ -20,9 +20,9 @@ module.exports = {
 					info: '#75A0F5',
 					success: '#6CE4D8',
 					warning: '#ED921D',
-					error: '#F84F35'
-				}
-			}
-		]
-	}
+					error: '#F84F35',
+				},
+			},
+		],
+	},
 };

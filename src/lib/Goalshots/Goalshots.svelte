@@ -1,9 +1,9 @@
 <script lang="ts">
-import { browser } from '$app/env';
-import localforage from 'localforage';
+	import { browser } from '$app/env';
+	import localforage from 'localforage';
 
-import { getContext } from 'svelte';
-import type { Readable } from 'svelte/store';
+	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
 	import SegmentDisplay from '../SegmentsDisplay/SegmentDisplay.svelte';
 	export let logo: string;

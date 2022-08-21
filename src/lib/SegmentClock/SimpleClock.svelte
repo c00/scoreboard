@@ -14,14 +14,14 @@
 	export let active = true;
 	export let stopAtZero = true;
 
-	export let color: string = 'green';
-	export let format: string = '  :  ';
+	export let color = 'green';
+	export let format = '  :  ';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 
 	const dispatch = createEventDispatcher();
 	const mediaUpdate = getContext<Readable<string>>('media-update');
 
-	let ms: number = 0;
+	let ms = 0;
 	let value: string;
 	let endTime: DateTime;
 	let audioEl: HTMLAudioElement;
@@ -62,7 +62,7 @@
 			active = false;
 			dispatch('timerFinished');
 			if (!buzzed && audioEl && audioSrc) {
-				buzzed = true
+				buzzed = true;
 				audioEl.play();
 			}
 		}

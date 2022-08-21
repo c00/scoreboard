@@ -10,14 +10,14 @@
 	import SliderInput from '$lib/Forms/SliderInput.svelte';
 	import TextInput from '$lib/Forms/TextInput.svelte';
 	import { gameState, pendingState } from '$lib/GameStores/gameStateStore';
+	import { currentEvent, HotkeyAction } from '$lib/hotkeys/hotkeyStore';
+	import Listener from '$lib/hotkeys/Listener.svelte';
 	import Navbar from '$lib/Navbar/Navbar.svelte';
 	import equal from 'deep-equal';
 	import { cloneDeep } from 'lodash-es';
-	import { derived } from 'svelte/store';
-	import Listener from '$lib/hotkeys/Listener.svelte';
-	import { currentEvent, HotkeyAction } from '$lib/hotkeys/hotkeyStore';
-	import type { Clock } from '../../lib/GameStores/GameState';
 	import { DateTime } from 'luxon';
+	import { derived } from 'svelte/store';
+	import type { Clock } from '../../lib/GameStores/GameState';
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
@@ -37,15 +37,15 @@
 	)
 		togglePenaltyClock();
 
+	$: selectedClock =
+		$pendingState.useClock === 'alt' ? $pendingState.altClock : $pendingState.mainClock;
+
 	function resetPendingState() {
 		$pendingState = cloneDeep($gameState);
 	}
 
 	function setClockTimes(conf: Clock, prev: Clock) {
-		//this doesn't fully work on switch, as the clocks are switched out...
-		// Add alt Clock to config
-		// Set als clock to disabled on commit
-		// Them this will work.
+		if (!conf || !prev) return;
 
 		if (!prev.active && conf.active) {
 			conf.startedAt = DateTime.now().toSeconds();
@@ -66,10 +66,14 @@
 			$pendingState.mainClock.active = false;
 		}
 
-		console.log('Setting Main Clock', $pendingState.mainClock, $gameState.mainClock);
 		setClockTimes($pendingState.mainClock, $gameState.mainClock);
-		console.log('Setting Alt Clock', $pendingState.altClock, $gameState.altClock);
 		setClockTimes($pendingState.altClock, $gameState.altClock);
+
+		//Save state for Penalty Clocks
+		setClockTimes($pendingState.leftTeam.penalty1.clock, $gameState.leftTeam.penalty1.clock);
+		setClockTimes($pendingState.leftTeam.penalty2.clock, $gameState.leftTeam.penalty2.clock);
+		setClockTimes($pendingState.rightTeam.penalty1.clock, $gameState.rightTeam.penalty1.clock);
+		setClockTimes($pendingState.rightTeam.penalty2.clock, $gameState.rightTeam.penalty2.clock);
 
 		$gameState = cloneDeep($pendingState);
 		$currentEvent = null;
@@ -80,18 +84,24 @@
 	};
 
 	const toggleAllClocks = () => {
-		const state = !$pendingState.mainClock.active;
-		$pendingState.mainClock.active = state;
-		if ($pendingState.leftTeam.penalty1.player) $pendingState.leftTeam.penalty1.active = state;
-		if ($pendingState.leftTeam.penalty2.player) $pendingState.leftTeam.penalty2.active = state;
-		if ($pendingState.rightTeam.penalty1.player) $pendingState.rightTeam.penalty1.active = state;
-		if ($pendingState.rightTeam.penalty2.player) $pendingState.rightTeam.penalty2.active = state;
+		const state = !selectedClock.active;
+		selectedClock.active = state;
+		if ($pendingState.leftTeam.penalty1.player)
+			$pendingState.leftTeam.penalty1.clock.active = state;
+		if ($pendingState.leftTeam.penalty2.player)
+			$pendingState.leftTeam.penalty2.clock.active = state;
+		if ($pendingState.rightTeam.penalty1.player)
+			$pendingState.rightTeam.penalty1.clock.active = state;
+		if ($pendingState.rightTeam.penalty2.player)
+			$pendingState.rightTeam.penalty2.clock.active = state;
 		commit();
 		$currentEvent = null;
 	};
 
 	const toggleMainClock = () => {
-		$pendingState.mainClock.active = !$pendingState.mainClock.active;
+		const selectedClock =
+			$pendingState.useClock === 'alt' ? $pendingState.altClock : $pendingState.mainClock;
+		selectedClock.active = !selectedClock.active;
 		commit();
 		$currentEvent = null;
 	};
@@ -99,16 +109,20 @@
 	const togglePenaltyClock = () => {
 		switch ($currentEvent) {
 			case HotkeyAction.TOGGLE_PENALTY_CLOCK_1_LEFT:
-				$pendingState.leftTeam.penalty1.active = !$pendingState.leftTeam.penalty1.active;
+				$pendingState.leftTeam.penalty1.clock.active =
+					!$pendingState.leftTeam.penalty1.clock.active;
 				break;
 			case HotkeyAction.TOGGLE_PENALTY_CLOCK_2_LEFT:
-				$pendingState.leftTeam.penalty2.active = !$pendingState.leftTeam.penalty2.active;
+				$pendingState.leftTeam.penalty2.clock.active =
+					!$pendingState.leftTeam.penalty2.clock.active;
 				break;
 			case HotkeyAction.TOGGLE_PENALTY_CLOCK_1_RIGHT:
-				$pendingState.rightTeam.penalty1.active = !$pendingState.rightTeam.penalty1.active;
+				$pendingState.rightTeam.penalty1.clock.active =
+					!$pendingState.rightTeam.penalty1.clock.active;
 				break;
 			case HotkeyAction.TOGGLE_PENALTY_CLOCK_2_RIGHT:
-				$pendingState.rightTeam.penalty2.active = !$pendingState.rightTeam.penalty2.active;
+				$pendingState.rightTeam.penalty2.clock.active =
+					!$pendingState.rightTeam.penalty2.clock.active;
 				break;
 			default:
 				return;
@@ -155,6 +169,15 @@
 						<div>Everything is up to date</div>
 						<button type="button" disabled class="btn">apply</button>
 					{/if}
+				</div>
+				<div class="mt-2">
+					<button type="button" on:click={toggleAllClocks} class="btn btn-block btn-ghost">
+						{#if selectedClock.active}
+							Stop all clocks
+						{:else}
+							Resume all clocks
+						{/if}
+					</button>
 				</div>
 				<div class="mt-10">
 					<TextInput bind:value={$pendingState.title} label="Title" />

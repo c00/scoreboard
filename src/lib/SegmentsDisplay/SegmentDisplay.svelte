@@ -4,7 +4,7 @@
 	import SevenSegment from './SevenSegment.svelte';
 
 	export let color: string = null;
-	export let format: string = '  :  ';
+	export let format = '  :  ';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let value: string | number = null;
 

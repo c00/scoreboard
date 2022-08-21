@@ -13,6 +13,8 @@
 	onMount(() => {
 		if (!browser) return;
 		hotkeys.setScope('active');
+		hotkeys.filter = () => true;
+
 		return () => hotkeys.deleteScope('active');
 	});
 
@@ -33,8 +35,6 @@
 				currentEvent.set(s.action);
 			});
 		}
-
-		console.table($hotkeyStore);
 	};
 
 	//todo define the actions

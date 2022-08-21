@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { currentEvent, HotkeyAction } from '../../hotkeys/hotkeyStore';
 
-	export let label: string = 'GOAL';
+	export let label = 'GOAL';
 	export let value: boolean;
 	export let side: 'left' | 'right';
 

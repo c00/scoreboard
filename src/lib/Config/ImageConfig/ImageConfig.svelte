@@ -45,4 +45,11 @@
 	<img class="w-48 rounded" {src} alt="Image for {name}" />
 </button>
 
-<input id={inputId} type="file" bind:files class="hidden" bind:this={fileEl} accept=".png,.jpg,.jpeg,.svg"  />
+<input
+	id={inputId}
+	type="file"
+	bind:files
+	class="hidden"
+	bind:this={fileEl}
+	accept=".png,.jpg,.jpeg,.svg"
+/>

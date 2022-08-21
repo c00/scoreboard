@@ -4,20 +4,21 @@
 	import SegmentDisplay from '../SegmentsDisplay/SegmentDisplay.svelte';
 
 	export let team: TeamState;
-	export let clocksActive: boolean;
 
 	const inactive: { player: number; clock: Clock } = {
 		player: null,
-		clock: { seconds: null, active: false, startedAt: 1, stopAtZero: true }
+		clock: { seconds: null, active: false, startedAt: 1, stopAtZero: true },
 	};
 
-	$: p1 = team.penalty1.active
-		? { player: team.penalty1.player, clock: team.penalty1.clock }
-		: inactive;
+	$: p1 =
+		team.penalty1.player && team.penalty1.clock.seconds
+			? { player: team.penalty1.player, clock: team.penalty1.clock }
+			: inactive;
 
-	$: p2 = team.penalty2.active
-		? { player: team.penalty2.player, clock: team.penalty2.clock }
-		: inactive;
+	$: p2 =
+		team.penalty2.player && team.penalty2.clock.seconds
+			? { player: team.penalty2.player, clock: team.penalty2.clock }
+			: inactive;
 </script>
 
 <div class="justify-center flex">
@@ -39,7 +40,7 @@
 				color="red"
 				format="  :  "
 				seconds={p1.clock.seconds}
-				active={p1.clock.seconds && clocksActive}
+				active={p1.clock.active}
 			/>
 		</div>
 		<div>
@@ -48,7 +49,7 @@
 				color="red"
 				format="  :  "
 				seconds={p2.clock.seconds}
-				active={p2.clock.seconds && clocksActive}
+				active={p2.clock.active}
 			/>
 		</div>
 	</div>

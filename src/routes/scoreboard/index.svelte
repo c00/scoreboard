@@ -53,7 +53,7 @@
 				<ScoreSection team={$state.leftTeam} />
 			</div>
 			<div class="mt-8">
-				<PenaltyDisplay team={$state.leftTeam} clocksActive={$state.mainClock.active} />
+				<PenaltyDisplay team={$state.leftTeam} />
 			</div>
 		</div>
 
@@ -97,7 +97,7 @@
 				<ScoreSection team={$state.rightTeam} />
 			</div>
 			<div class="mt-8">
-				<PenaltyDisplay team={$state.rightTeam} clocksActive={$state.mainClock.active} />
+				<PenaltyDisplay team={$state.rightTeam} />
 			</div>
 		</div>
 	</section>

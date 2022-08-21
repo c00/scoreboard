@@ -15,7 +15,7 @@ export function storageReadable(key: string, initial?: any) {
 			//not parsable, no problem.
 			data = gotten;
 		}
-    if (data) set(data);
+		if (data) set(data);
 
 		function handleEvent(event: StorageEvent) {
 			if (event.key !== key) return;

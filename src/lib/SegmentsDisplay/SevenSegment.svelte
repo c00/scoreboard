@@ -11,7 +11,12 @@
 	};
 </script>
 
-<svg class:animate={animate} class="{$$props.class} {digitClass}" xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 12 20">
+<svg
+	class:animate
+	class="{$$props.class} {digitClass}"
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="-1 -1 12 20"
+>
 	<g
 		xmlns="http://www.w3.org/2000/svg"
 		style="fill-rule:evenodd; stroke:#FFFFFF; stroke-width:0.25; stroke-opacity:0; stroke-linecap:butt; stroke-linejoin:miter;"
@@ -238,7 +243,7 @@
 		}
 	}
 
-  .orange {
+	.orange {
 		&.digit-0 {
 			.a,
 			.b,

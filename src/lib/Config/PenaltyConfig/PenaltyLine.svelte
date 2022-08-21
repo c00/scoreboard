@@ -7,9 +7,9 @@
 </script>
 
 <div class="flex gap-4">
-  <div class="mt-12">
-    <input type="checkbox" bind:checked={state.active} class="checkbox" />
-  </div>
+	<div class="mt-12">
+		<input type="checkbox" bind:checked={state.clock.active} class="checkbox" />
+	</div>
 	<div class="w-28">
 		<NumberInput placeholder="e.g. 12" bind:value={state.player} label="Player" />
 	</div>

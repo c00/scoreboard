@@ -9,14 +9,14 @@ const config = {
 		preprocess({
 			postcss: true,
 			scss: {
-				prependData: '@use "src/variables.scss" as *;'
-			}
-		})
+				prependData: '@use "src/variables.scss" as *;',
+			},
+		}),
 	],
 
 	kit: {
 		adapter: adapter(),
-	}
+	},
 };
 
 export default config;

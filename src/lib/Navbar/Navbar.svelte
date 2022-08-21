@@ -13,7 +13,7 @@
 	}
 
 	function openScoreboard() {
-		window.open("/scoreboard");
+		window.open('/scoreboard');
 	}
 </script>
 
@@ -28,11 +28,21 @@
 	</div>
 	<div class="flex-none mr-4 gap-4">
 		<slot name="links">
-			<a on:click|preventDefault={openScoreboard} href="/scoreboard" class="hover:text-white" target="_blank">open scoreboard</a>
+			<a
+				on:click|preventDefault={openScoreboard}
+				href="/scoreboard"
+				class="hover:text-white"
+				target="_blank">open scoreboard</a
+			>
 		</slot>
 	</div>
 	<div class="flex-none mr-4">
-		<a href="https://github.com/c00/scoreboard" target="_blank" class="hover:text-white transition-colors" title="GitHub Repo">
+		<a
+			href="https://github.com/c00/scoreboard"
+			target="_blank"
+			class="hover:text-white transition-colors"
+			title="GitHub Repo"
+		>
 			<GithubIcon />
 		</a>
 	</div>
