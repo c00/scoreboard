@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { browser } from '$app/env';
+	import Ad from '$lib/Ads/Ad.svelte';
 	import hockey from '$lib/assets/hockey.png';
 	import { defaultState } from '$lib/GameStores/GameState';
 	import { STORAGE_KEY } from '$lib/GameStores/gameStateStore';
@@ -8,10 +10,9 @@
 	import ScoreSection from '$lib/ScoreSection/ScoreSection.svelte';
 	import SimpleClock from '$lib/SegmentClock/SimpleClock.svelte';
 	import SegmentDisplay from '$lib/SegmentsDisplay/SegmentDisplay.svelte';
-	import { onMount, setContext } from 'svelte';
 	import { storageReadable } from '$lib/Stores/StorageReadable';
-	import { browser } from '$app/env';
-	import { scoreboardThemes } from '../../lib/Theme/Theme';
+	import { scoreboardThemes } from '$lib/Theme/Theme';
+	import { onMount, setContext } from 'svelte';
 
 	setContext('media-update', storageReadable('media-update'));
 
@@ -47,12 +48,16 @@
 
 <div class="w-full h-full board text-white flex flex-col">
 	<!-- Header -->
-	<section class="flex gap-3 px-4 pt-8">
-		<!-- <div>Ad 1</div> -->
+	<section class="flex gap-3 px-4 pt-8 items-center">
+		<div class="w-1/5">
+			<Ad label="ad-left" alt="Advert 1" />
+		</div>
 
 		<div class="grow text-center font-bold text-4xl">{$state.title}</div>
 
-		<!-- <div>Ad 2</div> -->
+		<div class="w-1/5 text-right">
+			<Ad label="ad-right" alt="Advert 2" />
+		</div>
 	</section>
 
 	<!-- Main section -->

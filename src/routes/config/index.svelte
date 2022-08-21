@@ -17,6 +17,7 @@
 	import { cloneDeep } from 'lodash-es';
 	import { DateTime } from 'luxon';
 	import { derived } from 'svelte/store';
+import AdConfig from '../../lib/Ads/AdConfig.svelte';
 import SelectInput from '../../lib/Forms/SelectInput.svelte';
 	import type { Clock } from '../../lib/GameStores/GameState';
 	import { scoreboardThemes } from '../../lib/Theme/Theme';
@@ -185,6 +186,10 @@ import SelectInput from '../../lib/Forms/SelectInput.svelte';
 					<h2 class="font-bold text-slate-500 text-center mt-8 mb-2">Penalties</h2>
 					<PenaltyConfig bind:team={$pendingState.leftTeam} />
 				</div>
+				<div>
+					<h2 class="font-bold text-slate-500 text-center mt-8 mb-2">Advert</h2>
+					<AdConfig label="Left Advert" name="ad-left" />
+				</div>
 			</div>
 			<div class="w-1/3">
 				<div class="alert sticky top-2 transition-colors mb-4" class:alert-warning={$dirty}>
@@ -246,6 +251,10 @@ import SelectInput from '../../lib/Forms/SelectInput.svelte';
 				<div>
 					<h2 class="font-bold text-slate-500 text-center mt-8 mb-2">Penalties</h2>
 					<PenaltyConfig bind:team={$pendingState.rightTeam} />
+				</div>
+				<div>
+					<h2 class="font-bold text-slate-500 text-center mt-8 mb-2">Advert</h2>
+					<AdConfig label="Right Advert" name="ad-right" />
 				</div>
 			</div>
 		</div>

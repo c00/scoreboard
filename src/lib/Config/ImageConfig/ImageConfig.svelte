@@ -10,6 +10,8 @@
 	export let label: string = null;
 	export let name: string;
 
+	export let canRemove = false;
+
 	const dispatch = createEventDispatcher();
 
 	let fileEl: HTMLInputElement;
@@ -34,6 +36,13 @@
 		dispatch('image-saved', { name });
 		src = data;
 	}
+
+	async function remove() {
+		await localforage.removeItem(name);
+		localStorage.setItem('media-update', String(new Date()));
+		dispatch('image-removed', { name });
+		src = hockey;
+	}
 </script>
 
 {#if label}
@@ -44,6 +53,10 @@
 <button type="button" class="mx-auto block" on:click={() => fileEl.click()}>
 	<img class="w-48 rounded" {src} alt="Image for {name}" />
 </button>
+
+{#if canRemove && src !== hockey}
+	<button type="button" on:click={remove} class="btn btn-sm btn-ghost mt-2">remove</button>
+{/if}
 
 <input
 	id={inputId}

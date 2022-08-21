@@ -31,7 +31,7 @@
 	$: hasVal(seconds) ? initClock() : clearClock();
 	$: active ? resume() : pause();
 	$: if (active && $time) tick();
-	$: if (browser && $mediaUpdate && audioEl) loadAudio();
+	$: if (browser && $mediaUpdate && audioEl && audioLabel) loadAudio();
 	$: if ($currentEvent === HotkeyAction.BUZZER) soundBuzzer();
 
 	async function loadAudio() {
