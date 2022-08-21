@@ -8,8 +8,6 @@ module.exports = {
 	daisyui: {
 		themes: [
 			'winter',
-			'light',
-			'dark',
 			{
 				'custom-theme': {
 					primary: '#e8f495',

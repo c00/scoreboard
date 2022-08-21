@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { currentEvent, HotkeyAction } from '../../hotkeys/hotkeyStore';
+import { addToast } from '../../Toasts/ToastStore';
 
 	export let label = 'GOAL';
 	export let value: boolean;
@@ -16,9 +17,11 @@
 		if ($currentEvent === HotkeyAction.GOAL_LEFT && side === 'left') {
 			click();
 			$currentEvent = null;
+			addToast('Goal shown (Left)')
 		} else if ($currentEvent === HotkeyAction.GOAL_RIGHT && side === 'right') {
 			click();
 			$currentEvent = null;
+			addToast('Goal shown (Right)')
 		}
 	}
 

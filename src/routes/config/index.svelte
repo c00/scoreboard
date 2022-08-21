@@ -18,6 +18,8 @@
 	import { DateTime } from 'luxon';
 	import { derived } from 'svelte/store';
 	import type { Clock } from '../../lib/GameStores/GameState';
+	import Toasts from '../../lib/Toasts/Toasts.svelte';
+	import { addToast } from '../../lib/Toasts/ToastStore';
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
@@ -96,6 +98,12 @@
 			$pendingState.rightTeam.penalty2.clock.active = state;
 		commit();
 		$currentEvent = null;
+
+		if (state) {
+			addToast('All clocks started');
+		} else {
+			addToast('All clocks stopped');
+		}
 	};
 
 	const toggleMainClock = () => {
@@ -104,25 +112,37 @@
 		selectedClock.active = !selectedClock.active;
 		commit();
 		$currentEvent = null;
+
+		if (selectedClock.active) {
+			addToast('Main clocks started');
+		} else {
+			addToast('Main clocks stopped');
+		}
 	};
 
 	const togglePenaltyClock = () => {
+		let clockName: string;
+		let state: boolean;
 		switch ($currentEvent) {
 			case HotkeyAction.TOGGLE_PENALTY_CLOCK_1_LEFT:
-				$pendingState.leftTeam.penalty1.clock.active =
-					!$pendingState.leftTeam.penalty1.clock.active;
+				state = !$pendingState.leftTeam.penalty1.clock.active;
+				$pendingState.leftTeam.penalty1.clock.active = state;
+				clockName = 'Penalty clock 1 (Left)';
 				break;
 			case HotkeyAction.TOGGLE_PENALTY_CLOCK_2_LEFT:
-				$pendingState.leftTeam.penalty2.clock.active =
-					!$pendingState.leftTeam.penalty2.clock.active;
+				state = !$pendingState.leftTeam.penalty2.clock.active;
+				$pendingState.leftTeam.penalty2.clock.active = state;
+				clockName = 'Penalty clock 2 (Left)';
 				break;
 			case HotkeyAction.TOGGLE_PENALTY_CLOCK_1_RIGHT:
-				$pendingState.rightTeam.penalty1.clock.active =
-					!$pendingState.rightTeam.penalty1.clock.active;
+				state = !$pendingState.rightTeam.penalty1.clock.active;
+				$pendingState.rightTeam.penalty1.clock.active = state;
+				clockName = 'Penalty clock 1 (Right)';
 				break;
 			case HotkeyAction.TOGGLE_PENALTY_CLOCK_2_RIGHT:
-				$pendingState.rightTeam.penalty2.clock.active =
-					!$pendingState.rightTeam.penalty2.clock.active;
+				state = !$pendingState.rightTeam.penalty2.clock.active;
+				$pendingState.rightTeam.penalty2.clock.active = state;
+				clockName = 'Penalty clock 2 (Right)';
 				break;
 			default:
 				return;
@@ -130,6 +150,8 @@
 
 		commit();
 		$currentEvent = null;
+
+		addToast(`${clockName} ${state ? 'started' : 'stopped'}`);
 	};
 </script>
 
@@ -225,3 +247,4 @@
 
 <Listener />
 <DebugGameState />
+<Toasts />
