@@ -14,6 +14,8 @@
 	import { scoreboardThemes } from '$lib/Theme/Theme';
 	import { onMount, setContext } from 'svelte';
 
+	export const ssr = false;
+
 	setContext('media-update', storageReadable('media-update'));
 
 	let root: HTMLElement;

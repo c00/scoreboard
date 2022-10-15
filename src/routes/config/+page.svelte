@@ -17,12 +17,14 @@
 	import { cloneDeep } from 'lodash-es';
 	import { DateTime } from 'luxon';
 	import { derived } from 'svelte/store';
-import AdConfig from '../../lib/Ads/AdConfig.svelte';
-import SelectInput from '../../lib/Forms/SelectInput.svelte';
+	import AdConfig from '../../lib/Ads/AdConfig.svelte';
+	import SelectInput from '../../lib/Forms/SelectInput.svelte';
 	import type { Clock } from '../../lib/GameStores/GameState';
 	import { scoreboardThemes } from '../../lib/Theme/Theme';
 	import Toasts from '../../lib/Toasts/Toasts.svelte';
 	import { addToast } from '../../lib/Toasts/ToastStore';
+
+	export const ssr = false;
 
 	const dirty = derived([pendingState, gameState], ([$pendingState, $gameState]) => {
 		return !equal($gameState, $pendingState);
@@ -40,6 +42,7 @@ import SelectInput from '../../lib/Forms/SelectInput.svelte';
 			HotkeyAction.TOGGLE_PENALTY_CLOCK_2_LEFT,
 			HotkeyAction.TOGGLE_PENALTY_CLOCK_1_RIGHT,
 			HotkeyAction.TOGGLE_PENALTY_CLOCK_2_RIGHT,
+			HotkeyAction.TOGGLE_ALL_PENALTY_CLOCKS,
 		].includes($currentEvent)
 	)
 		togglePenaltyClock();
@@ -148,6 +151,14 @@ import SelectInput from '../../lib/Forms/SelectInput.svelte';
 				state = !$pendingState.rightTeam.penalty2.clock.active;
 				$pendingState.rightTeam.penalty2.clock.active = state;
 				clockName = 'Penalty clock 2 (Right)';
+				break;
+			case HotkeyAction.TOGGLE_ALL_PENALTY_CLOCKS:
+				state = !$pendingState.leftTeam.penalty1.clock.active;
+				$pendingState.leftTeam.penalty1.clock.active = state;
+				$pendingState.leftTeam.penalty2.clock.active = state;
+				$pendingState.rightTeam.penalty1.clock.active = state;
+				$pendingState.rightTeam.penalty2.clock.active = state;
+				clockName = 'All Penalty Clocks';
 				break;
 			default:
 				return;

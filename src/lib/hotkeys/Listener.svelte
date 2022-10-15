@@ -13,7 +13,8 @@
 	onMount(() => {
 		if (!browser) return;
 		hotkeys.setScope('active');
-		hotkeys.filter = () => true;
+		//Enable the line below to also use shortcuts while in form controls. (input, textarea)
+		// hotkeys.filter = () => true;
 
 		return () => hotkeys.deleteScope('active');
 	});

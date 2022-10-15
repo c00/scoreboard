@@ -57,9 +57,7 @@
 		keyState = e;
 		setText();
 
-		if (e.key.length === 1 && keyText.length > 1) {
-			confirm();
-		}
+		if (e.key.length === 1) confirm();
 	}
 </script>
 

@@ -3,6 +3,8 @@
 	import { defaultHotkeys, hotkeyStore } from '$lib/hotkeys/hotkeyStore';
 	import Navbar from '$lib/Navbar/Navbar.svelte';
 
+	export const ssr = false;
+	
 	function reset() {
 		hotkeyStore.set(defaultHotkeys);
 	}

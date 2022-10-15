@@ -5,6 +5,7 @@
 	import { getRandomId } from '../randomId';
 	import AudioIcon from './AudioIcon.svelte';
 	import { readFile } from './FileHelper';
+	import { currentEvent, HotkeyAction } from '$lib/hotkeys/hotkeyStore';
 
 	export let label: string;
 	export let name: string;
@@ -20,6 +21,9 @@
 
 	$: if (files) saveFile();
 	$: if (name && browser) setDataUrl();
+
+	$: if ($currentEvent === HotkeyAction.HORN && name === 'horn') soundHorn();
+	$: if ($currentEvent === HotkeyAction.BUZZER && name === 'buzzer') soundBuzzer();
 
 	function playToggle() {
 		if (!audioEl) return;
@@ -44,6 +48,18 @@
 		localStorage.setItem('media-update', String(new Date()));
 		dispatch('audio-saved', { name });
 		src = data;
+	}
+
+	function soundHorn() {
+		console.log('Sounding horn')
+		if (audioEl) audioEl.play();
+		$currentEvent = null;
+	}
+
+	function soundBuzzer() {
+		console.log('Sounding buzzer')
+		if (audioEl) audioEl.play();
+		$currentEvent = null;
 	}
 </script>
 

@@ -32,16 +32,17 @@
 	$: active ? resume() : pause();
 	$: if (active && $time) tick();
 	$: if (browser && $mediaUpdate && audioEl && audioLabel) loadAudio();
-	$: if ($currentEvent === HotkeyAction.BUZZER) soundBuzzer();
+	// $: if ($currentEvent === HotkeyAction.BUZZER) soundBuzzer();
 
 	async function loadAudio() {
 		audioSrc = await localforage.getItem(audioLabel);
 	}
 
-	function soundBuzzer() {
-		if (audioLabel !== 'buzzer') return;
-		if (audioEl && audioSrc) audioEl.play();
-	}
+	// function soundBuzzer() {
+	// 	if (audioLabel !== 'buzzer') return;
+	// 	if (audioEl && audioSrc) audioEl.play();
+	// 	$currentEvent = null;
+	// }
 
 	function clearClock() {
 		active = false;
